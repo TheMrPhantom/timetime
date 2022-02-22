@@ -11,6 +11,7 @@ import CreateDaysAndTimes from './CreateDaysAndTimes';
 import CombineDaysAndtimes from './CombineDaysAndtimes';
 import Settings from './Settings';
 import OwnerInfos from './OwnerInfos';
+import styles from '../Common/common.module.scss';
 
 type Props = {}
 
@@ -117,7 +118,10 @@ const CreateEvent = (props: Props) => {
             ) : (
                 <React.Fragment>
                     <Typography sx={{ mt: 2, mb: 1 }}>{Texts.STEP} {activeStep + 1}</Typography>
-                    {displaySteps()}
+                    {console.log(styles)}
+                    <div className={styles.flexMiddle}>
+                        {displaySteps()}
+                    </div>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                         <Button
                             color="inherit"

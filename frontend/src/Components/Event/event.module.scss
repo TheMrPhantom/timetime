@@ -1,0 +1,8 @@
+@import "../Common/variables.module.scss";
+
+.stepperPaper {
+    width: 60%;
+    min-width: 200px;
+    background-color: red;
+    padding: $padding;
+}
