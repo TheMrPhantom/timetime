@@ -117,3 +117,7 @@ export const secureRandomNumber = () => {
     }
     return sum
 }
+
+export const dateToString = (date) => {
+    return date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString()
+}

@@ -1,3 +1,5 @@
+import { dateToString } from "../Components/Common/StaticFunctions";
+
 const initialState = {
     days: [],
     times: []
@@ -7,7 +9,9 @@ const reducer = (state = initialState, { type, payload }: { type: string | Date 
     var newState = { ...state, ...payload }
     switch (type) {
         case "ADD_DAY":
-            if (newState.days.includes(payload.day)) {
+            var isContained = false;
+            newState.days.forEach((value: Date) => isContained ||= dateToString(value) === dateToString(payload.day))
+            if (isContained) {
                 return newState
             }
             newState.days = [...newState.days, payload.day]
@@ -18,7 +22,9 @@ const reducer = (state = initialState, { type, payload }: { type: string | Date 
             return newState
 
         case "ADD_TIME":
-            if (newState.time.includes(payload.time)) {
+            var isContained = false;
+            newState.time.forEach((value: Date) => isContained ||= dateToString(value) === dateToString(payload.time))
+            if (isContained) {
                 return newState
             }
             newState.time = [...newState.time, payload.time]

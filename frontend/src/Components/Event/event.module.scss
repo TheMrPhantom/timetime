@@ -30,3 +30,8 @@
     justify-content: space-evenly;
     gap: $flex-gap;
 }
+
+.createDayContainer {
+    display: flex;
+    gap: $flex-gap;
+}

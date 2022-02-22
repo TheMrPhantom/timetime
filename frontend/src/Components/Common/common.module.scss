@@ -1,3 +1,5 @@
+@import "./variables.module.scss";
+
 .flexMiddle {
     display: flex;
     justify-content: center;
@@ -7,4 +9,18 @@
 
 .daypicker {
     width: 200px;
+}
+
+.errorButton {
+    color: white !important;
+    background-color: $error-color !important;
+}
+
+.successButton {
+    color: white !important;
+    background-color: $success-color !important;
+}
+
+.errorText {
+    color: $error-color;
 }
