@@ -1,0 +1,13 @@
+{
+    "STEPPER_EVENT_INFORMATIONS": "Event Informationen",
+    "STEPPER_CREATE_DAY_AND_TIMES": "Tage und Zeiten erstellen",
+    "STEPPER_COMBINE_DAY_AND_TIME": "Tage und Zeiten kombinieren",
+    "STEPPER_EVENT_SETTINGS": "Event Einstellungen",
+    "STEPPER_EVENT_OWNER": "Informationen für Teilnehmer",
+    "STEPPER_CREATE_EVENT_FINISHED": "Event wurde erstellt",
+    "NEXT": "Weiter",
+    "BACK": "Zurück",
+    "STEP": "Schritt",
+    "RESET": "Zurücksetzen",
+    "FINISH": "Absenden"
+}
