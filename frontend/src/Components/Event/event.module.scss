@@ -3,6 +3,18 @@
 .stepperPaper {
     width: 60%;
     min-width: 200px;
-    background-color: red;
     padding: $padding;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: $flex-gap;
+    @media (max-width: $COMPACT_SIZE_THRESHOLD) {
+        width: 100%;
+    }
+}
+
+.textFields {
+    min-width: 180px;
+    width: 70%;
+    max-width: 400px;
 }
