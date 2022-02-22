@@ -1,10 +1,10 @@
 import { Button, Chip, Divider, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { addDay, addTime, deleteDay } from '../../Actions/DayTimeCreationAction';
+import { addDay, addTime, deleteDay, deleteTime } from '../../Actions/DayTimeCreationAction';
 import DayPicker from '../Common/DayPicker';
 import PlusMinusButton from '../Common/PlusMinusButton';
-import { dateToString } from '../Common/StaticFunctions';
+import { dateToString, timeTupleToString } from '../Common/StaticFunctions';
 import eventClasses from './event.module.scss';
 import commonClasses from '../Common/common.module.scss';
 import TimePick from '../Common/TimePicker';
@@ -20,7 +20,7 @@ const CreateDaysAndTimes = (props: Props) => {
     const dispatch = useDispatch()
     if (createDay !== null)
         console.log(dateToString(createDay))
-    const displayChips = () => {
+    const displayDateChips = () => {
         if (eventCreationInfos.days.length === 0) {
             return <Typography className={commonClasses.errorText}>Noch keine Tage hinzugefügt</Typography>
         } else {
@@ -34,7 +34,22 @@ const CreateDaysAndTimes = (props: Props) => {
             })
         }
     }
+    const displayTimeChips = () => {
+        if (eventCreationInfos.times.length === 0) {
+            return <Typography className={commonClasses.errorText}>Noch keine Zeiten hinzugefügt</Typography>
+        } else {
+            return eventCreationInfos.times.map((times: [Date, Date]) => {
+                return <Chip
+                    className={eventClasses.fitContentWidth}
+                    key={times[0].toISOString() + "time"}
+                    label={timeTupleToString(times)}
+                    variant="outlined"
+                    onDelete={() => dispatch(deleteTime(times))} />
+            })
+        }
+    }
 
+    console.log(createStart)
     return (
         <Paper elevation={2} className={eventClasses.stepperPaper}>
             <Typography variant="h5">Tage erstellen</Typography>
@@ -47,7 +62,7 @@ const CreateDaysAndTimes = (props: Props) => {
             </div>
             <Typography variant="h6">Erstellte Tage</Typography>
             <div className={eventClasses.chipContainer}>
-                {displayChips()}
+                {displayDateChips()}
             </div>
             <Spacer vertical={30} />
             <Divider />
@@ -61,9 +76,9 @@ const CreateDaysAndTimes = (props: Props) => {
                     dispatch(addTime([createStart as Date, createEnd as Date]))
                 }} />
             </div>
-            <Typography variant="h6">Erstellte Tage</Typography>
+            <Typography variant="h6">Erstellte Stunden</Typography>
             <div className={eventClasses.chipContainer}>
-                {displayChips()}
+                {displayTimeChips()}
             </div>
         </Paper>
     )

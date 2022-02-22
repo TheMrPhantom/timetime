@@ -9,12 +9,13 @@ import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
+
 function App() {
   const [themeCookie, setthemeCookie] = useState(0)
   const store = createStore(allReducer, composeWithDevTools())
 
   useEffect(() => {
-    setthemeCookie(Cookies.get("theme") !== undefined ? Number(Cookies.get("theme")) : 2)
+    setthemeCookie(Cookies.get("theme") !== undefined ? Number(Cookies.get("theme")) : 0)
   }, [])
 
   return (

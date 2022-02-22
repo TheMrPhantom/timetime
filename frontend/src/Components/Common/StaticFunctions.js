@@ -121,3 +121,12 @@ export const secureRandomNumber = () => {
 export const dateToString = (date) => {
     return date.getDate().toString() + "." + (date.getMonth() + 1).toString() + "." + date.getFullYear().toString()
 }
+
+export const timeTupleToString = (times) => {
+    const startMinutes = times[0].getMinutes().toString().padStart(2, '0');
+    const startHours = times[0].getHours().toString().padStart(2, '0');
+    const endMinutes = times[1].getMinutes().toString().padStart(2, '0');
+    const endHours = times[1].getHours().toString().padStart(2, '0');
+
+    return startHours + ":" + startMinutes + " - " + endHours + ":" + endMinutes + " Uhr"
+}

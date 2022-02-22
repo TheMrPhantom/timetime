@@ -20,7 +20,8 @@ const TimePick = (props: Props) => {
                 label={props.label}
                 value={props.date}
                 onChange={(newValue) => {
-                    props.onValueChange(newValue as Date);
+                    if (newValue !== null)
+                        props.onValueChange(newValue as Date);
                 }}
                 renderInput={(params) => <TextField variant='outlined'{...params} className={styles.daypicker} error={(props.date as Date)?.toISOString() === ""} />}
             />
