@@ -1,7 +1,6 @@
-import { InputAdornment, Paper, TextareaAutosize, TextField, Typography } from '@mui/material'
+import { InputAdornment, Paper, TextField } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 import CampaignIcon from '@mui/icons-material/Campaign';
-import React, { useState } from 'react'
 import Texts from '../../texts.json'
 import eventClasses from './event.module.scss';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
@@ -50,7 +49,7 @@ const Informations = (props: Props) => {
                 id="event-infos"
                 label={Texts.EVENT_INFO_LABEL}
                 variant="outlined"
-                value={eventCreationInfos.eventPlace}
+                value={eventCreationInfos.eventInfo}
                 onChange={(value) => dispatch(setInfos(value.target.value))}
                 className={eventClasses.textFields}
                 multiline

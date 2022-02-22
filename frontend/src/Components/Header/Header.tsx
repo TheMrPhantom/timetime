@@ -1,6 +1,5 @@
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import React from 'react'
-import Spacer from '../Common/Spacer'
 import MenuIcon from '@mui/icons-material/Menu';
 import Config from '../../environment.json';
 

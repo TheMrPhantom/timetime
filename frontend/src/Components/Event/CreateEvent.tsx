@@ -133,7 +133,6 @@ const CreateEvent = (props: Props) => {
                 ) : (
                     <React.Fragment>
                         <Typography sx={{ mt: 2, mb: 1 }}>{Texts.STEP} {activeStep + 1}</Typography>
-                        {console.log(styles)}
                         <div className={styles.flexMiddle}>
                             {displaySteps()}
                         </div>
