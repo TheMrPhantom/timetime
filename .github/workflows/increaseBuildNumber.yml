@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.GHUB_TOKEN }}
-      - name: Create report file
+      - name: Increase build number
         run: awk '$0++' frontend/src/BuildNumber.json > newfile && mv newfile frontend/src/BuildNumber.json
       - name: Commit report
         run: |
