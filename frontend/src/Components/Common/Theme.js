@@ -116,6 +116,12 @@ export const darkTheme1 = createTheme({
                     color: darkNotActive
                 }
             }
+        }, MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    color: darkFont,
+                }
+            }
         }, MuiToggleButton: {
             styleOverrides: {
                 root: {
@@ -275,6 +281,13 @@ export const darkTheme2 = createTheme({
             styleOverrides: {
                 label: {
                     color: darkNotActive
+                }
+            }
+        },
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    color: darkFont2,
                 }
             }
         }, MuiToggleButton: {

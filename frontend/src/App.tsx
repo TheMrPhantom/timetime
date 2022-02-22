@@ -8,20 +8,23 @@ import allReducer from './Reducer/reducerCombiner';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-
+import { CssBaseline } from '@mui/material';
 function App() {
   const [themeCookie, setthemeCookie] = useState(0)
   const store = createStore(allReducer, composeWithDevTools())
 
   useEffect(() => {
-    setthemeCookie(Cookies.get("theme") !== undefined ? Number(Cookies.get("theme")) : 0)
+    setthemeCookie(Cookies.get("theme") !== undefined ? Number(Cookies.get("theme")) : 2)
   }, [])
 
   return (
     <ThemeProvider theme={themes[themeCookie]}>
-      <Provider store={store}>
-        <Mainpage />
-      </Provider>
+      <div className="App">
+        <CssBaseline />
+        <Provider store={store}>
+          <Mainpage />
+        </Provider>
+      </div>
     </ThemeProvider >
   );
 }

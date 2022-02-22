@@ -119,5 +119,5 @@ export const secureRandomNumber = () => {
 }
 
 export const dateToString = (date) => {
-    return date.getDate().toString() + "." + date.getMonth().toString() + "." + date.getFullYear().toString()
+    return date.getDate().toString() + "." + (date.getMonth() + 1).toString() + "." + date.getFullYear().toString()
 }

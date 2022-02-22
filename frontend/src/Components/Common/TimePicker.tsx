@@ -5,6 +5,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import deLocale from 'date-fns/locale/de';
 import { TextField } from '@mui/material';
 import styles from '../Common/common.module.scss';
+import { TimePicker } from '@mui/lab';
 
 type Props = {
     date: Date | string | null,
@@ -12,24 +13,19 @@ type Props = {
     onValueChange: (value: Date | null) => void
 }
 
-const DayPicker = (props: Props) => {
-
-
-    const isDate = !Number.isNaN(props.date?.valueOf())
-    console.log(props.date)
-
+const TimePick = (props: Props) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={deLocale} >
-            <DatePicker
+            <TimePicker
                 label={props.label}
                 value={props.date}
                 onChange={(newValue) => {
                     props.onValueChange(newValue as Date);
                 }}
-                renderInput={(params) => <TextField variant='outlined'{...params} className={styles.daypicker} error={!isDate || (props.date as Date)?.toISOString() === ""} />}
+                renderInput={(params) => <TextField variant='outlined'{...params} className={styles.daypicker} error={(props.date as Date)?.toISOString() === ""} />}
             />
         </LocalizationProvider>
     )
 }
 
-export default DayPicker
+export default TimePick

@@ -12,7 +12,7 @@ type Props = {
 const PlusMinusButton = (props: Props) => {
     return (
         <Button className={props.isRemove ? styles.errorButton : styles.successButton} onClick={props.onClick}>
-            {props.isRemove ? <RemoveIcon /> : <AddIcon />}
+            {props.isRemove ? <RemoveIcon className={styles.errorButton} /> : <AddIcon className={styles.successButton} />}
         </Button>
     )
 }

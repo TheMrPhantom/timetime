@@ -12,14 +12,14 @@ export const deleteDay = (day: Date | null) => {
     }
 }
 
-export const dddTime = (time: Date | null) => {
+export const addTime = (time: [Date | null, Date | null]) => {
     return {
         type: "ADD_TIME",
         payload: { time: time }
     }
 }
 
-export const deleteTime = (time: Date | null) => {
+export const deleteTime = (time: [Date | null, Date | null]) => {
     return {
         type: "DELETE_TIME",
         payload: { time: time }
