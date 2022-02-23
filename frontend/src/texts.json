@@ -3,7 +3,7 @@
     "STEPPER_CREATE_DAY_AND_TIMES": "Tage und Zeiten erstellen",
     "STEPPER_COMBINE_DAY_AND_TIME": "Tage und Zeiten kombinieren",
     "STEPPER_EVENT_SETTINGS": "Event Einstellungen",
-    "STEPPER_EVENT_OWNER": "Informationen für Teilnehmer",
+    "STEPPER_EVENT_OWNER": "Informationen über dich",
     "STEPPER_CREATE_EVENT_FINISHED": "Event wurde erstellt",
     "EVENT_NAME_LABEL": "Event Name",
     "EVENT_PLACE_LABEL": "Event Ort",
@@ -12,5 +12,7 @@
     "BACK": "Zurück",
     "STEP": "Schritt",
     "RESET": "Zurücksetzen",
-    "FINISH": "Absenden"
+    "FINISH": "Absenden",
+    "NAME": "Name",
+    "E_MAIL": "E-Mail Adresse"
 }
