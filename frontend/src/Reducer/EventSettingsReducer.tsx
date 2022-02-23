@@ -2,11 +2,11 @@ const initialState = {
     settings: {
         optional: false,
         hasMaxParticipants: false,
-        maxParticipants: -1,
+        maxParticipants: 0,
         onlyOneOption: false,
         secretPoll: false,
         hasDeadline: false,
-        deadline: new Date(2000, 0),
+        deadline: new Date(),
         sendResult: false
     },
 }

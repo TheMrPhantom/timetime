@@ -1,10 +1,12 @@
-import { Divider, Paper, Switch, Typography } from '@mui/material'
+import { Collapse, Divider, Paper, Switch, TextField, Typography } from '@mui/material'
 import { useSelector } from 'react-redux';
 import React from 'react'
 import { RootStateOrAny, useDispatch } from 'react-redux'
 import styles from './event.module.scss'
 import { SettingsType } from '../../Reducer/EventSettingsReducer';
 import { setSettings } from '../../Actions/EventSettingsAction';
+import Spacer from '../Common/Spacer';
+import DayPicker from '../Common/DayPicker';
 type Props = {}
 
 const Settings = (props: Props) => {
@@ -35,6 +37,21 @@ const Settings = (props: Props) => {
                     }} />
                 </div>
                 <Typography>Beschänkt die Anzahl der Teilnehmer, die sich für einen Zeitslot eintragen können auf die Festgelegte Anzahl</Typography>
+
+                <Collapse in={state.settings.hasMaxParticipants}>
+                    <div>
+                        <Spacer vertical={20} />
+                        <TextField variant="outlined"
+                            label="Maximale Teilnehmerzahl"
+                            type="number"
+                            value={state.settings.maxParticipants}
+                            onChange={(value) => {
+                                const newState: SettingsType = { ...state }
+                                newState.settings.maxParticipants = Number.parseInt(value.target.value)
+                                dispatch(setSettings(newState))
+                            }} />
+                    </div>
+                </Collapse>
             </div>
             <Divider className={styles.containerDivider} />
             <div className={styles.settingsMiddleContainer}>
@@ -71,6 +88,18 @@ const Settings = (props: Props) => {
                     }} />
                 </div>
                 <Typography>Umfrage wird zu diesem Termin automatisch beendet, nach diesem Termin können sich Teilnehmer nicht mehr für Zeiten eintragen</Typography>
+
+                <Collapse in={state.settings.hasDeadline}>
+                    <div>
+                        <Spacer vertical={20} />
+                        <DayPicker label='Datum' date={state.settings.deadline} onValueChange={(value: Date | null) => {
+                            const newState: SettingsType = { ...state }
+                            newState.settings.deadline = value !== null ? value : new Date()
+                            dispatch(setSettings(newState))
+                        }} />
+
+                    </div>
+                </Collapse>
             </div>
             <Divider className={styles.containerDivider} />
             <div className={styles.settingsMiddleContainer}>

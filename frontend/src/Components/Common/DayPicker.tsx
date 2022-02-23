@@ -14,7 +14,6 @@ type Props = {
 
 const DayPicker = (props: Props) => {
 
-
     const isDate = !Number.isNaN(props.date?.valueOf())
 
     return (
