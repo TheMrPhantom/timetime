@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Texts from '../../texts.json';
 import Informations from './Informations';
 import CreateDaysAndTimes from './CreateDaysAndTimes';
-import CombineDaysAndtimes from './CombineDaysAndtimes';
+import CombineDaysAndTimes from './CombineDaysAndTimes';
 import Settings from './Settings';
 import OwnerInfos from './OwnerInfos';
 import styles from '../Common/common.module.scss';
@@ -74,7 +74,7 @@ const CreateEvent = (props: Props) => {
             case 1:
                 return <CreateDaysAndTimes />
             case 2:
-                return <CombineDaysAndtimes />
+                return <CombineDaysAndTimes />
             case 3:
                 return <Settings />
             case 4:

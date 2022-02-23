@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const reducer = (state = initialState, { type, payload }: { type: string, payload: any }) => {
-    var newState = { ...state, ...payload }
+    var newState = { ...state }
     switch (type) {
         case "SET_NAME":
             newState.eventName = payload.name

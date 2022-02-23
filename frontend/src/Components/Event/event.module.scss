@@ -37,3 +37,20 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+.dateTimeCombineContainer {
+    padding: $padding;
+    min-width: 300px;
+    gap: $flex-gap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dateTimeCombineContainerOutter {
+    padding: $padding;
+    gap: $flex-gap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
