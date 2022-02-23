@@ -67,14 +67,15 @@
 
 .settingsMiddleContainer {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: $flex-gap;
 }
 
 .settingsInnerContainer {
     display: flex;
-    gap: $flex-gap;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-direction: column;
+    justify-content: flex-start;
     width: 100%;
 }
 
@@ -91,4 +92,9 @@
     align-items: flex-start;
     width: 40%;
     min-width: 300px;
+}
+
+.iconContainer{
+    display:flex;
+    align-items: center;
 }

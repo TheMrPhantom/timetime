@@ -7,6 +7,14 @@ import { SettingsType } from '../../Reducer/EventSettingsReducer';
 import { setSettings } from '../../Actions/EventSettingsAction';
 import Spacer from '../Common/Spacer';
 import DayPicker from '../Common/DayPicker';
+
+import LooksOneIcon from '@mui/icons-material/LooksOne';
+import TodayIcon from '@mui/icons-material/Today';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import HelpIcon from '@mui/icons-material/Help';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import EmailIcon from '@mui/icons-material/Email';
+
 type Props = {}
 
 const Settings = (props: Props) => {
@@ -16,80 +24,89 @@ const Settings = (props: Props) => {
     return (
         <Paper className={styles.settingsContainer}>
             <div className={styles.settingsMiddleContainer}>
+                <div className={styles.iconContainer}>
+                    <HelpIcon />
+                </div>
                 <div className={styles.settingsInnerContainer}>
                     <Typography variant="h6">"Ich bin mir nicht sicher" Option</Typography>
-                    <Switch checked={state.settings.optional} onChange={(value) => {
-                        const newState: SettingsType = { ...state }
-                        newState.settings.optional = value.target.checked
-                        dispatch(setSettings(newState))
-                    }} />
+                    <Typography>Gibt den Teilnehmern die Möglichkeit an einem nicht sicher zu zusagen</Typography>
                 </div>
-                <Typography>Gibt den Teilnehmern die Möglichkeit an einem nicht sicher zu zusagen</Typography>
+                <Switch checked={state.settings.optional} onChange={(value) => {
+                    const newState: SettingsType = { ...state }
+                    newState.settings.optional = value.target.checked
+                    dispatch(setSettings(newState))
+                }} />
             </div>
             <Divider className={styles.containerDivider} />
             <div className={styles.settingsMiddleContainer} >
+                <div className={styles.iconContainer}>
+                    <AdminPanelSettingsIcon />
+                </div>
                 <div className={styles.settingsInnerContainer}>
                     <Typography variant="h6">Maximale Teilnehmer Pro Slot</Typography>
-                    <Switch checked={state.settings.hasMaxParticipants} onChange={(value) => {
-                        const newState: SettingsType = { ...state }
-                        newState.settings.hasMaxParticipants = value.target.checked
-                        dispatch(setSettings(newState))
-                    }} />
+                    <Typography>Beschänkt die Anzahl der Teilnehmer, die sich für einen Zeitslot eintragen können auf die Festgelegte Anzahl</Typography>
+                    <Collapse in={state.settings.hasMaxParticipants}>
+                        <div>
+                            <Spacer vertical={20} />
+                            <TextField variant="outlined"
+                                label="Maximale Teilnehmerzahl"
+                                type="number"
+                                value={state.settings.maxParticipants}
+                                onChange={(value) => {
+                                    const newState: SettingsType = { ...state }
+                                    newState.settings.maxParticipants = Number.parseInt(value.target.value)
+                                    dispatch(setSettings(newState))
+                                }} />
+                        </div>
+                    </Collapse>
                 </div>
-                <Typography>Beschänkt die Anzahl der Teilnehmer, die sich für einen Zeitslot eintragen können auf die Festgelegte Anzahl</Typography>
 
-                <Collapse in={state.settings.hasMaxParticipants}>
-                    <div>
-                        <Spacer vertical={20} />
-                        <TextField variant="outlined"
-                            label="Maximale Teilnehmerzahl"
-                            type="number"
-                            value={state.settings.maxParticipants}
-                            onChange={(value) => {
-                                const newState: SettingsType = { ...state }
-                                newState.settings.maxParticipants = Number.parseInt(value.target.value)
-                                dispatch(setSettings(newState))
-                            }} />
-                    </div>
-                </Collapse>
+                <Switch checked={state.settings.hasMaxParticipants} onChange={(value) => {
+                    const newState: SettingsType = { ...state }
+                    newState.settings.hasMaxParticipants = value.target.checked
+                    dispatch(setSettings(newState))
+                }} />
+
             </div>
             <Divider className={styles.containerDivider} />
             <div className={styles.settingsMiddleContainer}>
+                <div className={styles.iconContainer}>
+                    <LooksOneIcon />
+                </div>
                 <div className={styles.settingsInnerContainer}>
                     <Typography variant="h6">Nur eine Option wählbar</Typography>
-                    <Switch checked={state.settings.onlyOneOption} onChange={(value) => {
-                        const newState: SettingsType = { ...state }
-                        newState.settings.onlyOneOption = value.target.checked
-                        dispatch(setSettings(newState))
-                    }} />
+                    <Typography>Teilnehmer können sich nur zu einem Zeitlot eintragen</Typography>
                 </div>
-                <Typography>Teilnehmer können sich nur zu einem Zeitlot eintragen</Typography>
+                <Switch checked={state.settings.onlyOneOption} onChange={(value) => {
+                    const newState: SettingsType = { ...state }
+                    newState.settings.onlyOneOption = value.target.checked
+                    dispatch(setSettings(newState))
+                }} />
             </div>
             <Divider className={styles.containerDivider} />
             <div className={styles.settingsMiddleContainer}>
+                <div className={styles.iconContainer}>
+                    <VpnKeyIcon />
+                </div>
                 <div className={styles.settingsInnerContainer}>
                     <Typography variant="h6">Geheime Umfrage</Typography>
-                    <Switch checked={state.settings.secretPoll} onChange={(value) => {
-                        const newState: SettingsType = { ...state }
-                        newState.settings.secretPoll = value.target.checked
-                        dispatch(setSettings(newState))
-                    }} />
+                    <Typography>Teilnehmer sehen nicht, was andere Teilnehmer bei der Umfrage angegeben haben. Der Ersteller sieht weiterhin alle Antworten.</Typography>
                 </div>
-                <Typography>Teilnehmer sehen nicht, was andere Teilnehmer bei der Umfrage angegeben haben. Der Ersteller sieht weiterhin alle Antworten.</Typography>
+                <Switch checked={state.settings.secretPoll} onChange={(value) => {
+                    const newState: SettingsType = { ...state }
+                    newState.settings.secretPoll = value.target.checked
+                    dispatch(setSettings(newState))
+                }} />
             </div>
             <Divider className={styles.containerDivider} />
             <div className={styles.settingsMiddleContainer}>
+                <div className={styles.iconContainer}>
+                    <TodayIcon />
+                </div>
                 <div className={styles.settingsInnerContainer}>
                     <Typography variant="h6">Frist</Typography>
-                    <Switch checked={state.settings.hasDeadline} onChange={(value) => {
-                        const newState: SettingsType = { ...state }
-                        newState.settings.hasDeadline = value.target.checked
-                        dispatch(setSettings(newState))
-                    }} />
-                </div>
-                <Typography>Umfrage wird zu diesem Termin automatisch beendet, nach diesem Termin können sich Teilnehmer nicht mehr für Zeiten eintragen</Typography>
-
-                <Collapse in={state.settings.hasDeadline}>
+                    <Typography>Umfrage wird zu diesem Termin automatisch beendet, nach diesem Termin können sich Teilnehmer nicht mehr für Zeiten eintragen</Typography>
+                    <Collapse in={state.settings.hasDeadline}>
                     <div>
                         <Spacer vertical={20} />
                         <DayPicker label='Datum' date={state.settings.deadline} onValueChange={(value: Date | null) => {
@@ -100,18 +117,29 @@ const Settings = (props: Props) => {
 
                     </div>
                 </Collapse>
+                </div>
+
+                <Switch checked={state.settings.hasDeadline} onChange={(value) => {
+                    const newState: SettingsType = { ...state }
+                    newState.settings.hasDeadline = value.target.checked
+                    dispatch(setSettings(newState))
+                }} />
             </div>
             <Divider className={styles.containerDivider} />
             <div className={styles.settingsMiddleContainer}>
+                <div className={styles.iconContainer}>
+                    <EmailIcon />
+                </div>
                 <div className={styles.settingsInnerContainer}>
                     <Typography variant="h6">Ergebnis per Mail versenden</Typography>
-                    <Switch checked={state.settings.sendResult} onChange={(value) => {
-                        const newState: SettingsType = { ...state }
-                        newState.settings.sendResult = value.target.checked
-                        dispatch(setSettings(newState))
-                    }} />
+                    <Typography>Sendet nach beendigung der Umfrage die Ergebnisse an alle Teilnehmer, die eine Email Adresse angegeben haben</Typography>
+
                 </div>
-                <Typography>Sendet nach beendigung der Umfrage die Ergebnisse an alle Teilnehmer, die eine Email Adresse angegeben haben</Typography>
+                <Switch checked={state.settings.sendResult} onChange={(value) => {
+                    const newState: SettingsType = { ...state }
+                    newState.settings.sendResult = value.target.checked
+                    dispatch(setSettings(newState))
+                }} />
             </div>
         </Paper>
     )
