@@ -3,7 +3,7 @@ import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { secureRandomNumber } from '../Common/StaticFunctions';
 import CombineDaysAndTimesItem from './CombineDaysAndTimesItem'
 import styles from './event.module.scss';
-
+import { TransitionGroup } from 'react-transition-group';
 type Props = {}
 
 const CombineDaysAndTimes = (props: Props) => {

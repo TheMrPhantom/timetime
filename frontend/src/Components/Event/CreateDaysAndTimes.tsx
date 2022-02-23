@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, Paper, Typography } from '@mui/material'
+import { Button, Chip, Divider, Grow, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { addDay, addTime, deleteDay, deleteTime } from '../../Actions/DayTimeCreationAction';
@@ -9,6 +9,7 @@ import eventClasses from './event.module.scss';
 import commonClasses from '../Common/common.module.scss';
 import TimePick from '../Common/TimePicker';
 import Spacer from '../Common/Spacer';
+import { TransitionGroup } from 'react-transition-group';
 
 type Props = {}
 
@@ -23,28 +24,28 @@ const CreateDaysAndTimes = (props: Props) => {
         if (eventCreationInfos.days.length === 0) {
             return <Typography className={commonClasses.errorText}>Noch keine Tage hinzugefügt</Typography>
         } else {
-            return eventCreationInfos.days.map((day: Date) => {
-                return <Chip
+            return (<TransitionGroup className={eventClasses.chipContainer}> {eventCreationInfos.days.map((day: Date) => {
+                return (<Grow><div> <Chip
                     className={eventClasses.fitContentWidth}
                     key={day.toISOString()}
                     label={dateToString(day)}
                     variant="outlined"
-                    onDelete={() => dispatch(deleteDay(day))} />
-            })
+                    onDelete={() => dispatch(deleteDay(day))} /></div></Grow>)
+            })}</TransitionGroup>)
         }
     }
     const displayTimeChips = () => {
         if (eventCreationInfos.times.length === 0) {
             return <Typography className={commonClasses.errorText}>Noch keine Zeiten hinzugefügt</Typography>
         } else {
-            return eventCreationInfos.times.map((times: [Date, Date]) => {
-                return <Chip
+            return (<TransitionGroup className={eventClasses.chipContainer}> {eventCreationInfos.times.map((times: [Date, Date]) => {
+                return (<Grow><div><Chip
                     className={eventClasses.fitContentWidth}
                     key={times[0].toISOString() + "time"}
                     label={timeTupleToString(times)}
                     variant="outlined"
-                    onDelete={() => dispatch(deleteTime(times))} />
-            })
+                    onDelete={() => dispatch(deleteTime(times))} /></div></Grow>)
+            })}</TransitionGroup>)
         }
     }
 
@@ -59,9 +60,9 @@ const CreateDaysAndTimes = (props: Props) => {
                 }} />
             </div>
             <Typography variant="h6">Erstellte Tage</Typography>
-            <div className={eventClasses.chipContainer}>
-                {displayDateChips()}
-            </div>
+
+            {displayDateChips()}
+
             <Spacer vertical={30} />
             <Divider />
             <Typography variant="h5">Uhrzeiten erstellen</Typography>

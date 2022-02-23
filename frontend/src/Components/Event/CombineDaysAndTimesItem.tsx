@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import styles from './event.module.scss';
 import { Typography } from '@mui/material';
-import { dateToString, timeToString, timeTupleToString } from '../Common/StaticFunctions';
+import { dateToString, timeTupleToString } from '../Common/StaticFunctions';
 
 type Props = {
     date: Date,
