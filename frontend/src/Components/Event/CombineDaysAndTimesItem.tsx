@@ -10,6 +10,8 @@ import Paper from '@mui/material/Paper';
 import styles from './event.module.scss';
 import { Typography } from '@mui/material';
 import { dateToString, timeTupleToString } from '../Common/StaticFunctions';
+import { useDispatch } from 'react-redux';
+import { add, remove } from '../../Actions/CombinedDayTimeAction';
 
 type Props = {
     date: Date,
@@ -24,21 +26,25 @@ const intersection = (a: any, b: any) => {
     return a.filter((value: any) => b.indexOf(value) !== -1);
 }
 
-const getTimeStringsArray = (inp: Array<{ time: Array<Date>, id: number }>): Array<{ text: string, id: number }> => {
-    const output: Array<{ text: string, id: number }> = []
+const getTimeStringsArray = (inp: Array<{ time: Array<Date>, id: number }>): Array<{ text: string, id: number, start: Date, end: Date }> => {
+    const output: Array<{ text: string, id: number, start: Date, end: Date }> = []
     inp.forEach((value) => {
-        output.push({ text: timeTupleToString(value.time), id: value.id })
+        output.push({ text: timeTupleToString(value.time), id: value.id, start: value.time[0], end: value.time[1] })
     })
     return output
 }
 
+
+
 const CombineDaysAndTimesItem = (props: Props) => {
-    const [checked, setChecked] = React.useState<Array<{ text: string, id: number }>>([]);
-    const [left, setLeft] = React.useState<Array<{ text: string, id: number }>>(getTimeStringsArray(props.times));
-    const [right, setRight] = React.useState<Array<{ text: string, id: number }>>([]);
+    const [checked, setChecked] = React.useState<Array<{ text: string, id: number, start: Date, end: Date }>>([]);
+    const [left, setLeft] = React.useState<Array<{ text: string, id: number, start: Date, end: Date }>>(getTimeStringsArray(props.times));
+    const [right, setRight] = React.useState<Array<{ text: string, id: number, start: Date, end: Date }>>([]);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
+
+    const dispatch = useDispatch()
 
     const handleToggle = (value: any) => () => {
         const currentIndex = checked.indexOf(value);
@@ -54,23 +60,28 @@ const CombineDaysAndTimesItem = (props: Props) => {
     };
 
     const handleAllRight = () => {
+        left.forEach(item => dispatch(add({ date: props.date, start: item.start, end: item.end, id: item.id })))
         setRight(right.concat(left));
         setLeft([]);
+
     };
 
     const handleCheckedRight = () => {
+        leftChecked.forEach((item: { text: string, id: number, start: Date, end: Date }) => dispatch(add({ date: props.date, start: item.start, end: item.end, id: item.id })))
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
     };
 
     const handleCheckedLeft = () => {
+        rightChecked.forEach((item: { text: string, id: number, start: Date, end: Date }) => dispatch(remove(item.id)))
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
     };
 
     const handleAllLeft = () => {
+        right.forEach(item => dispatch(remove(item.id)))
         setLeft(left.concat(right));
         setRight([]);
     };
@@ -79,7 +90,7 @@ const CombineDaysAndTimesItem = (props: Props) => {
         <Paper sx={{ overflow: 'auto' }} className={styles.dateTimeCombineContainer}>
             <Typography variant="caption">{isLeft ? "Nicht verwenden" : "Verwenden"}</Typography>
             <List dense component="div" role="list">
-                {items.map((value: { text: string, id: number }) => {
+                {items.map((value: { text: string, id: number, start: Date, end: Date }) => {
                     const labelId = `transfer-list-item-${value}-label`;
 
                     return (

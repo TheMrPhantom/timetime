@@ -1,15 +1,12 @@
 import React from 'react'
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { RootStateOrAny, useSelector } from 'react-redux';
 import { secureRandomNumber } from '../Common/StaticFunctions';
 import CombineDaysAndTimesItem from './CombineDaysAndTimesItem'
 import styles from './event.module.scss';
-import { TransitionGroup } from 'react-transition-group';
 type Props = {}
 
 const CombineDaysAndTimes = (props: Props) => {
     const eventCreationInfos = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
-    const dispatch = useDispatch()
-
     return (
         <div className={styles.dateTimeCombineContainerOutter}>
             {eventCreationInfos.days.map((day: Date) => {

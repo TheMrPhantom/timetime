@@ -7,9 +7,10 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }: { type: string | Date | null, payload: any }) => {
     var newState = { ...state }
+    var isContained = false;
     switch (type) {
         case "ADD_DAY":
-            var isContained = false;
+
             newState.days.forEach((value: Date) => isContained ||= dateToString(value) === dateToString(payload.day))
             if (isContained) {
                 return newState
@@ -22,9 +23,6 @@ const reducer = (state = initialState, { type, payload }: { type: string | Date 
             return newState
 
         case "ADD_TIME":
-
-            var isContained = false;
-
             newState.times.forEach((value: Array<Date>) => {
                 isContained ||= timeTupleToString(value) === timeTupleToString(payload.times)
             })
