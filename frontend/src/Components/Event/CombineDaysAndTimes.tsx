@@ -1,17 +1,23 @@
 import React from 'react'
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import CombineDaysAndTimesItem from './CombineDaysAndTimesItem'
 import styles from './event.module.scss';
 
 type Props = {}
 
 const CombineDaysAndTimes = (props: Props) => {
+    const eventCreationInfos = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
+    const dispatch = useDispatch()
+
     return (
         <div className={styles.dateTimeCombineContainerOutter}>
-            <CombineDaysAndTimesItem times={[{ time: "10:22", id: 19 }, { time: "12:22", id: 13 }, { time: "13:5", id: 12 }]} />
-            <CombineDaysAndTimesItem times={[{ time: "10:22", id: 19 }, { time: "12:22", id: 13 }, { time: "13:5", id: 12 }]} />
-            <CombineDaysAndTimesItem times={[{ time: "10:22", id: 19 }, { time: "12:22", id: 13 }, { time: "13:5", id: 12 }]} />
-            <CombineDaysAndTimesItem times={[{ time: "10:22", id: 19 }, { time: "12:22", id: 13 }, { time: "13:5", id: 12 }]} />
-            <CombineDaysAndTimesItem times={[{ time: "10:22", id: 19 }, { time: "12:22", id: 13 }, { time: "13:5", id: 12 }]} />
+            {eventCreationInfos.days.map((day: Date) => {
+                const timesArry: Array<{ time: Array<Date>, id: number }> = []
+                eventCreationInfos.times.forEach(((times: Array<Date>) => {
+                    timesArry.push({ time: times, id: 13 })
+                }))
+                return <CombineDaysAndTimesItem date={day} times={timesArry} />
+            })}
         </div>
     )
 }

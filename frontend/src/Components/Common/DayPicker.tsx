@@ -16,7 +16,6 @@ const DayPicker = (props: Props) => {
 
 
     const isDate = !Number.isNaN(props.date?.valueOf())
-    console.log(props.date)
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={deLocale} >

@@ -9,9 +9,11 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import styles from './event.module.scss';
 import { Typography } from '@mui/material';
+import { dateToString, timeToString, timeTupleToString } from '../Common/StaticFunctions';
 
 type Props = {
-    times: Array<{ time: string, id: number }>
+    date: Date,
+    times: Array<{ time: Array<Date>, id: number }>
 }
 
 const not = (a: any, b: any) => {
@@ -22,10 +24,18 @@ const intersection = (a: any, b: any) => {
     return a.filter((value: any) => b.indexOf(value) !== -1);
 }
 
+const getTimeStringsArray = (inp: Array<{ time: Array<Date>, id: number }>): Array<{ text: string, id: number }> => {
+    const output: Array<{ text: string, id: number }> = []
+    inp.forEach((value) => {
+        output.push({ text: timeTupleToString(value.time), id: value.id })
+    })
+    return output
+}
+
 const CombineDaysAndTimesItem = (props: Props) => {
-    const [checked, setChecked] = React.useState<Array<{ time: string, id: number }>>([]);
-    const [left, setLeft] = React.useState<Array<{ time: string, id: number }>>(props.times);
-    const [right, setRight] = React.useState<Array<{ time: string, id: number }>>([]);
+    const [checked, setChecked] = React.useState<Array<{ text: string, id: number }>>([]);
+    const [left, setLeft] = React.useState<Array<{ text: string, id: number }>>(getTimeStringsArray(props.times));
+    const [right, setRight] = React.useState<Array<{ text: string, id: number }>>([]);
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
@@ -69,12 +79,12 @@ const CombineDaysAndTimesItem = (props: Props) => {
         <Paper sx={{ overflow: 'auto' }} className={styles.dateTimeCombineContainer}>
             <Typography variant="caption">{isLeft ? "Nicht verwenden" : "Verwenden"}</Typography>
             <List dense component="div" role="list">
-                {items.map((value: any) => {
+                {items.map((value: { text: string, id: number }) => {
                     const labelId = `transfer-list-item-${value}-label`;
 
                     return (
                         <ListItem
-                            key={value}
+                            key={value.id}
                             role="listitem"
                             button
                             onClick={handleToggle(value)}
@@ -89,7 +99,7 @@ const CombineDaysAndTimesItem = (props: Props) => {
                                     }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={value.time} />
+                            <ListItemText id={labelId} primary={value.text} />
                         </ListItem>
                     );
                 })}
@@ -97,10 +107,10 @@ const CombineDaysAndTimesItem = (props: Props) => {
             </List>
         </Paper>
     );
-
+    console.log("lalalla")
     return (
         <Paper className={styles.dateTimeCombineContainer}>
-            <Typography variant="h6">25.02.2022</Typography>
+            <Typography variant="h6">{dateToString(props.date)}</Typography>
             <Grid container spacing={2} justifyContent="center" alignItems="center" >
                 <Grid item>{customList(left, true)}</Grid>
                 <Grid item>

@@ -18,8 +18,7 @@ const CreateDaysAndTimes = (props: Props) => {
     const [createEnd, setcreateEnd] = useState<Date | null | string>(null)
     const eventCreationInfos = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
     const dispatch = useDispatch()
-    if (createDay !== null)
-        console.log(dateToString(createDay))
+
     const displayDateChips = () => {
         if (eventCreationInfos.days.length === 0) {
             return <Typography className={commonClasses.errorText}>Noch keine Tage hinzugefügt</Typography>
@@ -49,7 +48,6 @@ const CreateDaysAndTimes = (props: Props) => {
         }
     }
 
-    console.log(createStart)
     return (
         <Paper elevation={2} className={eventClasses.stepperPaper}>
             <Typography variant="h5">Tage erstellen</Typography>

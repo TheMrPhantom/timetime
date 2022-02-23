@@ -22,8 +22,7 @@ const reducer = (state = initialState, { type, payload }: { type: string | Date 
             return newState
 
         case "ADD_TIME":
-            console.log("paaay" + timeTupleToString(payload.times))
-            console.log(newState)
+
             var isContained = false;
 
             newState.times.forEach((value: Array<Date>) => {
@@ -32,9 +31,8 @@ const reducer = (state = initialState, { type, payload }: { type: string | Date 
             if (isContained) {
                 return newState
             }
-            console.log(newState.times.concat([[payload.times[0], payload.times[1]]]))
             newState.times = newState.times.concat([[payload.times[0], payload.times[1]]])
-            console.log(newState)
+
             return newState
 
         case "DELETE_TIME":

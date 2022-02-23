@@ -13,7 +13,6 @@ export const deleteDay = (day: Date | null) => {
 }
 
 export const addTime = (times: [Date | null, Date | null]) => {
-    console.log(times)
     return {
         type: "ADD_TIME",
         payload: { times: times }
