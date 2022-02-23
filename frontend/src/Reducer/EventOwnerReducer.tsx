@@ -13,10 +13,10 @@ export type OwnerType = {
 const reducer = (state = initialState, { type, payload }: { type: string, payload: OwnerType }) => {
     var newState = { ...state }
     switch (type) {
-        case "UPDATE":
+        case "UPDATE_OWNER":
             newState.owner = payload.owner
             return newState
-        case "RESET":
+        case "RESET_OWNER":
             return initialState
 
         default:

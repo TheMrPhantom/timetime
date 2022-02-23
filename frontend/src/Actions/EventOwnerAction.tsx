@@ -2,14 +2,14 @@ import { OwnerType } from "../Reducer/EventOwnerReducer"
 
 export const setOwner = (settings: OwnerType) => {
     return {
-        type: "UPDATE",
+        type: "UPDATE_OWNER",
         payload: settings
     }
 }
 
 export const resetOwner = () => {
     return {
-        type: "RESET",
+        type: "RESET_OWNER",
         payload: {}
     }
 }
