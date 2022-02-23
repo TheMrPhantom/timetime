@@ -1,5 +1,6 @@
 import React from 'react'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { secureRandomNumber } from '../Common/StaticFunctions';
 import CombineDaysAndTimesItem from './CombineDaysAndTimesItem'
 import styles from './event.module.scss';
 
@@ -14,7 +15,7 @@ const CombineDaysAndTimes = (props: Props) => {
             {eventCreationInfos.days.map((day: Date) => {
                 const timesArry: Array<{ time: Array<Date>, id: number }> = []
                 eventCreationInfos.times.forEach(((times: Array<Date>) => {
-                    timesArry.push({ time: times, id: 13 })
+                    timesArry.push({ time: times, id: secureRandomNumber() })
                 }))
                 return <CombineDaysAndTimesItem date={day} times={timesArry} />
             })}

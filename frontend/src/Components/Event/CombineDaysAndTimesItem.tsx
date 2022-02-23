@@ -107,7 +107,7 @@ const CombineDaysAndTimesItem = (props: Props) => {
             </List>
         </Paper>
     );
-    console.log("lalalla")
+
     return (
         <Paper className={styles.dateTimeCombineContainer}>
             <Typography variant="h6">{dateToString(props.date)}</Typography>
