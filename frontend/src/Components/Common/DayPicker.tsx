@@ -18,7 +18,7 @@ type Props = {
 const DayPicker = (props: Props) => {
 
     const isDate = !Number.isNaN(props.date?.valueOf())
-
+    console.log(props.selectedDays)
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={deLocale} >
             <DatePicker
@@ -28,7 +28,9 @@ const DayPicker = (props: Props) => {
                     const inputArray: Array<string> = []
                     const currentDayString = dateToString(day)
                     props.selectedDays?.forEach((value) => inputArray.push(dateToString(value)))
-
+                    console.log(inputArray)
+                    console.log(currentDayString)
+                    console.log(inputArray.includes(currentDayString))
                     if (inputArray.includes(currentDayString)) {
                         return <PickersDay {...DayProps} className={styles.pickerDay} />
                     }
