@@ -5,7 +5,12 @@ const initialState = {
     times: Array<Array<Date>>(...[])
 }
 
-const reducer = (state = initialState, { type, payload }: { type: string | Date | null, payload: any }) => {
+export type DayTimeCreationType = {
+    days: Array<Date>,
+    times: Array<Array<Date>>
+}
+
+const reducer = (state: DayTimeCreationType = initialState, { type, payload }: { type: string | Date | null, payload: any }) => {
     var newState = { ...state }
     var isContained = false;
     switch (type) {

@@ -1,11 +1,17 @@
 const initialState = {
     slots: Array<{ date: Date, start: Date, end: Date, id: number }>(...[]),
 }
+export type CombinedDayTimeType = {
+    slots: Array<{ date: Date, start: Date, end: Date, id: number }>
+}
 
-const reducer = (state = initialState, { type, payload }: { type: string, payload: any }) => {
+const reducer = (state: CombinedDayTimeType = initialState, { type, payload }: { type: string, payload: any }) => {
     var newState = { ...state }
     switch (type) {
         case "ADD":
+            console.log(newState.slots)
+            console.log(newState.slots.filter((slot) => slot.id !== payload.slot.id))
+            newState.slots = newState.slots.filter((slot) => slot.id !== payload.slot.id)
             newState.slots = [...newState.slots, payload.slot]
             return newState
         case "REMOVE":

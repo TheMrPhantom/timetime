@@ -11,6 +11,7 @@ import TimePick from '../Common/TimePicker';
 import Spacer from '../Common/Spacer';
 import { TransitionGroup } from 'react-transition-group';
 import Texts from '../../texts.json';
+import CombineDaysAndTimes from './CombineDaysAndTimes';
 
 type Props = {
     back: () => void,
@@ -25,18 +26,15 @@ const CreateDaysAndTimes = (props: Props) => {
     const dispatch = useDispatch()
 
     const displayDateChips = () => {
-        if (eventCreationInfos.days.length === 0) {
-            return <Typography className={commonClasses.errorText}>Noch keine Tage hinzugefügt</Typography>
-        } else {
-            return (<TransitionGroup className={eventClasses.chipContainer}> {eventCreationInfos.days.map((day: Date) => {
-                return (<Grow><div> <Chip
-                    className={eventClasses.fitContentWidth}
-                    key={day.toISOString()}
-                    label={dateToString(day)}
-                    variant="outlined"
-                    onDelete={() => dispatch(deleteDay(day))} /></div></Grow>)
-            })}</TransitionGroup>)
-        }
+        return (<TransitionGroup className={eventClasses.chipContainer}> {eventCreationInfos.days.map((day: Date) => {
+            return (<Grow><div> <Chip
+                className={eventClasses.fitContentWidth}
+                key={day.toISOString()}
+                label={dateToString(day)}
+                variant="outlined"
+                onDelete={() => dispatch(deleteDay(day))} /></div></Grow>)
+        })}</TransitionGroup>)
+
     }
     const displayTimeChips = () => {
         if (eventCreationInfos.times.length === 0) {
@@ -63,11 +61,7 @@ const CreateDaysAndTimes = (props: Props) => {
                     dispatch(addDay(createDay as Date))
                 }} />
             </div>
-            <Typography variant="h6">Erstellte Tage</Typography>
-
             {displayDateChips()}
-
-            <Spacer vertical={30} />
             <Divider />
             <Typography variant="h5">Uhrzeiten erstellen</Typography>
             <div className={eventClasses.createDayContainer}>
@@ -79,10 +73,11 @@ const CreateDaysAndTimes = (props: Props) => {
                     dispatch(addTime([createStart as Date, createEnd as Date]))
                 }} />
             </div>
-            <Typography variant="h6">Erstellte Stunden</Typography>
             <div className={eventClasses.chipContainer}>
                 {displayTimeChips()}
             </div>
+            <Divider />
+            <CombineDaysAndTimes />
             <div className={eventClasses.informationButtonContainerDouble}>
                 <Button onClick={props.back}>{Texts.BACK}</Button>
                 <Button onClick={props.next}>{Texts.NEXT}</Button>

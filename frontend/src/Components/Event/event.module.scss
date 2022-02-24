@@ -31,6 +31,15 @@
     gap: $flex-gap;
 }
 
+.accordionChipContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: $flex-gap;
+    padding: $padding;
+}
+
 .createDayContainer {
     display: flex;
     gap: $flex-gap;
@@ -48,7 +57,7 @@
 
 .dateTimeCombineContainerOutter {
     padding: $padding;
-    gap: $flex-gap;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -111,4 +120,22 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.accordion {
+    width: 100%;
+}
+
+.accordionHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.accordionDetailsHeader {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $flex-gap;
 }

@@ -369,7 +369,19 @@ export const normalTheme = createTheme({
                     }
                 }
             },
-        },
+        }, MuiCollapse: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "white"
+                }
+            }
+        }, MuiAccordion: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "#fafafa"
+                }
+            }
+        }
     },
 });
 

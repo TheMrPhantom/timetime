@@ -19,7 +19,6 @@ const CreateEvent = (props: Props) => {
     const steps = [
         Texts.STEPPER_EVENT_INFORMATIONS,
         Texts.STEPPER_CREATE_DAY_AND_TIMES,
-        Texts.STEPPER_COMBINE_DAY_AND_TIME,
         Texts.STEPPER_EVENT_SETTINGS];
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set<number>());
@@ -71,8 +70,6 @@ const CreateEvent = (props: Props) => {
                 return <Informations next={() => handleNext()} />
             case 1:
                 return <CreateDaysAndTimes back={() => handleBack()} next={() => handleNext()} />
-            case 2:
-                return <CombineDaysAndTimes back={() => handleBack()} next={() => handleNext()} />
             case 3:
                 return <Settings back={() => handleBack()} next={() => handleNext()} />
             default:

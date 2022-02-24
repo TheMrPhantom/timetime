@@ -1,15 +1,15 @@
 import React from 'react'
 import { RootStateOrAny, useSelector } from 'react-redux';
 import { secureRandomNumber } from '../Common/StaticFunctions';
-import CombineDaysAndTimesItem from './CombineDaysAndTimesItem'
+import CombineDaysAndTimesItem from './CombineDaysAndTimesItem';
 import styles from './event.module.scss';
 import Texts from '../../texts.json';
 import eventClasses from './event.module.scss';
 import { Button } from '@mui/material';
 
+
 type Props = {
-    back: () => void,
-    next: () => void
+
 }
 
 const CombineDaysAndTimes = (props: Props) => {
@@ -21,12 +21,9 @@ const CombineDaysAndTimes = (props: Props) => {
                 eventCreationInfos.times.forEach(((times: Array<Date>) => {
                     timesArry.push({ time: times, id: secureRandomNumber() })
                 }))
-                return <CombineDaysAndTimesItem date={day} times={timesArry} />
+                return <CombineDaysAndTimesItem date={day} />
             })}
-            <div className={eventClasses.informationButtonContainerDouble}>
-                <Button onClick={props.back}>{Texts.BACK}</Button>
-                <Button onClick={props.next}>{Texts.NEXT}</Button>
-            </div>
+
         </div>
     )
 }
