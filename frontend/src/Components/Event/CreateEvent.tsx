@@ -10,7 +10,6 @@ import Informations from './Informations';
 import CreateDaysAndTimes from './CreateDaysAndTimes';
 import CombineDaysAndTimes from './CombineDaysAndTimes';
 import Settings from './Settings';
-import OwnerInfos from './OwnerInfos';
 import styles from '../Common/common.module.scss';
 import Config from '../../environment.json';
 
@@ -21,13 +20,12 @@ const CreateEvent = (props: Props) => {
         Texts.STEPPER_EVENT_INFORMATIONS,
         Texts.STEPPER_CREATE_DAY_AND_TIMES,
         Texts.STEPPER_COMBINE_DAY_AND_TIME,
-        Texts.STEPPER_EVENT_SETTINGS,
-        Texts.STEPPER_EVENT_OWNER];
+        Texts.STEPPER_EVENT_SETTINGS];
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set<number>());
 
     const isStepOptional = (step: number) => {
-        return false;
+        return step === 3;
     };
 
     const isStepSkipped = (step: number) => {
@@ -70,15 +68,13 @@ const CreateEvent = (props: Props) => {
     const displaySteps: () => JSX.Element = () => {
         switch (activeStep) {
             case 0:
-                return <Informations />
+                return <Informations next={() => handleNext()} />
             case 1:
-                return <CreateDaysAndTimes />
+                return <CreateDaysAndTimes back={() => handleBack()} next={() => handleNext()} />
             case 2:
-                return <CombineDaysAndTimes />
+                return <CombineDaysAndTimes back={() => handleBack()} next={() => handleNext()} />
             case 3:
-                return <Settings />
-            case 4:
-                return <OwnerInfos />
+                return <Settings back={() => handleBack()} next={() => handleNext()} />
             default:
                 return <></>
         }
@@ -136,25 +132,6 @@ const CreateEvent = (props: Props) => {
                         <div className={styles.flexMiddle}>
                             {displaySteps()}
                         </div>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <Button
-                                color="inherit"
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                sx={{ mr: 1 }}
-                            >
-                                Back
-                            </Button>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            {isStepOptional(activeStep) && (
-                                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                                    Skip
-                                </Button>
-                            )}
-                            <Button onClick={handleNext}>
-                                {activeStep === steps.length - 1 ? Texts.FINISH : Texts.NEXT}
-                            </Button>
-                        </Box>
                     </React.Fragment>
                 )
             }

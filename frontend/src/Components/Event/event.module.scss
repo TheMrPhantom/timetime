@@ -94,7 +94,21 @@
     min-width: 300px;
 }
 
-.iconContainer{
-    display:flex;
+.iconContainer {
+    display: flex;
     align-items: center;
+}
+
+.informationButtonContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.informationButtonContainerDouble {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

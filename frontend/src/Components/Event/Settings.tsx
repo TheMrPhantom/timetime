@@ -14,8 +14,14 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import HelpIcon from '@mui/icons-material/Help';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import EmailIcon from '@mui/icons-material/Email';
+import Texts from '../../texts.json';
+import eventClasses from './event.module.scss';
+import { Button } from '@mui/material';
 
-type Props = {}
+type Props = {
+    back: () => void,
+    next: () => void
+}
 
 const Settings = (props: Props) => {
     const state: SettingsType = useSelector((state: RootStateOrAny) => state.eventSettings);
@@ -107,16 +113,16 @@ const Settings = (props: Props) => {
                     <Typography variant="h6">Frist</Typography>
                     <Typography>Umfrage wird zu diesem Termin automatisch beendet, nach diesem Termin können sich Teilnehmer nicht mehr für Zeiten eintragen</Typography>
                     <Collapse in={state.settings.hasDeadline}>
-                    <div>
-                        <Spacer vertical={20} />
-                        <DayPicker label='Datum' date={state.settings.deadline} onValueChange={(value: Date | null) => {
-                            const newState: SettingsType = { ...state }
-                            newState.settings.deadline = value !== null ? value : new Date()
-                            dispatch(setSettings(newState))
-                        }} />
+                        <div>
+                            <Spacer vertical={20} />
+                            <DayPicker label='Datum' date={state.settings.deadline} onValueChange={(value: Date | null) => {
+                                const newState: SettingsType = { ...state }
+                                newState.settings.deadline = value !== null ? value : new Date()
+                                dispatch(setSettings(newState))
+                            }} />
 
-                    </div>
-                </Collapse>
+                        </div>
+                    </Collapse>
                 </div>
 
                 <Switch checked={state.settings.hasDeadline} onChange={(value) => {
@@ -140,6 +146,11 @@ const Settings = (props: Props) => {
                     newState.settings.sendResult = value.target.checked
                     dispatch(setSettings(newState))
                 }} />
+            </div>
+            <Divider className={styles.containerDivider} />
+            <div className={eventClasses.informationButtonContainerDouble}>
+                <Button onClick={props.back}>{Texts.BACK}</Button>
+                <Button onClick={props.next}>{Texts.NEXT}</Button>
             </div>
         </Paper>
     )

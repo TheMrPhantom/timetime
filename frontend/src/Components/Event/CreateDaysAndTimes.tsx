@@ -1,4 +1,4 @@
-import { Chip, Divider, Grow, Paper, Typography } from '@mui/material'
+import { Button, Chip, Divider, Grow, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { addDay, addTime, deleteDay, deleteTime } from '../../Actions/DayTimeCreationAction';
@@ -10,8 +10,12 @@ import commonClasses from '../Common/common.module.scss';
 import TimePick from '../Common/TimePicker';
 import Spacer from '../Common/Spacer';
 import { TransitionGroup } from 'react-transition-group';
+import Texts from '../../texts.json';
 
-type Props = {}
+type Props = {
+    back: () => void,
+    next: () => void
+}
 
 const CreateDaysAndTimes = (props: Props) => {
     const [createDay, setcreateDay] = useState<Date | null | string>(null)
@@ -79,6 +83,11 @@ const CreateDaysAndTimes = (props: Props) => {
             <div className={eventClasses.chipContainer}>
                 {displayTimeChips()}
             </div>
+            <div className={eventClasses.informationButtonContainerDouble}>
+                <Button onClick={props.back}>{Texts.BACK}</Button>
+                <Button onClick={props.next}>{Texts.NEXT}</Button>
+            </div>
+
         </Paper>
     )
 }
