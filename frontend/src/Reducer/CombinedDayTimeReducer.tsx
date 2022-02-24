@@ -9,8 +9,6 @@ const reducer = (state: CombinedDayTimeType = initialState, { type, payload }: {
     var newState = { ...state }
     switch (type) {
         case "ADD":
-            console.log(newState.slots)
-            console.log(newState.slots.filter((slot) => slot.id !== payload.slot.id))
             newState.slots = newState.slots.filter((slot) => slot.id !== payload.slot.id)
             newState.slots = [...newState.slots, payload.slot]
             return newState
