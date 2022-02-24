@@ -12,11 +12,14 @@ import Spacer from '../Common/Spacer';
 import { TransitionGroup } from 'react-transition-group';
 import Texts from '../../texts.json';
 import CombineDaysAndTimes from './CombineDaysAndTimes';
+import PaperHeadline from '../Common/PaperHeadline';
 
 type Props = {
     back: () => void,
     next: () => void
 }
+
+
 
 const CreateDaysAndTimes = (props: Props) => {
     const [createDay, setcreateDay] = useState<Date | null | string>(null)
@@ -25,7 +28,14 @@ const CreateDaysAndTimes = (props: Props) => {
     const eventCreationInfos = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
     const dispatch = useDispatch()
 
+    const nextEnabled = (): boolean => {
+        return eventCreationInfos.days.length !== 0 && eventCreationInfos.times.length !== 0
+    }
+
     const displayDateChips = () => {
+        if (eventCreationInfos.days.length === 0) {
+            return <Typography className={commonClasses.errorText}>Noch keine Tage hinzugefügt</Typography>
+        }
         return (<TransitionGroup className={eventClasses.chipContainer}> {eventCreationInfos.days.map((day: Date) => {
             return (<Grow><div> <Chip
                 className={eventClasses.fitContentWidth}
@@ -53,7 +63,8 @@ const CreateDaysAndTimes = (props: Props) => {
 
     return (
         <Paper elevation={2} className={eventClasses.stepperPaper}>
-            <Typography variant="h5">Tage erstellen</Typography>
+            <PaperHeadline text="Tage und Uhrzeiten erstellen" />
+            <Typography variant="h5">Tage hinzufügen</Typography>
             <div className={eventClasses.createDayContainer}>
                 <DayPicker label='Datum' date={createDay} onValueChange={setcreateDay} />
                 <PlusMinusButton isRemove={false} onClick={() => {
@@ -63,7 +74,7 @@ const CreateDaysAndTimes = (props: Props) => {
             </div>
             {displayDateChips()}
             <Divider />
-            <Typography variant="h5">Uhrzeiten erstellen</Typography>
+            <Typography variant="h5">Uhrzeiten hinzufügen</Typography>
             <div className={eventClasses.createDayContainer}>
                 <TimePick label='Von' date={createStart} onValueChange={setcreateStart} />
                 <TimePick label='Bis' date={createEnd} onValueChange={setcreateEnd} />
@@ -76,11 +87,10 @@ const CreateDaysAndTimes = (props: Props) => {
             <div className={eventClasses.chipContainer}>
                 {displayTimeChips()}
             </div>
-            <Divider />
-            <CombineDaysAndTimes />
+            <Spacer vertical={30} />
             <div className={eventClasses.informationButtonContainerDouble}>
                 <Button onClick={props.back}>{Texts.BACK}</Button>
-                <Button onClick={props.next}>{Texts.NEXT}</Button>
+                <Button disabled={!nextEnabled()} variant='contained' onClick={props.next}>{Texts.NEXT}</Button>
             </div>
 
         </Paper>

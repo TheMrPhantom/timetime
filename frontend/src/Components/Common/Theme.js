@@ -344,16 +344,20 @@ export const darkTheme2 = createTheme({
     },
 });
 
+const normalPrimary = '#bbc34f'
+const normalBackground = '#fbfbfb'
+const normalText = '#000000'
+
 export const normalTheme = createTheme({
     palette: {
         primary: {
-            main: '#bbc34f'
+            main: normalPrimary
         },
         background: {
-            default: "#fbfbfb"
+            default: normalBackground
         },
         text: {
-            primary: '#000000'
+            primary: normalText
         },
     },
     components: {
@@ -378,7 +382,7 @@ export const normalTheme = createTheme({
         }, MuiAccordion: {
             styleOverrides: {
                 root: {
-                    backgroundColor: "#fafafa"
+                    backgroundColor: normalPrimary
                 }
             }
         }

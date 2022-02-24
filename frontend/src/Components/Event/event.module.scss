@@ -56,8 +56,6 @@
 }
 
 .dateTimeCombineContainerOutter {
-    padding: $padding;
-
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -138,4 +136,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: $flex-gap;
+}
+
+.combinedDayTimeContainer {
+    width: 40%;
+    padding: $padding;
 }

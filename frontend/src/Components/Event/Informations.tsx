@@ -10,6 +10,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import { OwnerType } from '../../Reducer/EventOwnerReducer';
 import { setOwner } from '../../Actions/EventOwnerAction';
 import Spacer from '../Common/Spacer';
+import PaperHeadline from '../Common/PaperHeadline';
 
 type Props = {
     next: () => void
@@ -21,8 +22,13 @@ const Informations = (props: Props) => {
 
     const dispatch = useDispatch()
 
+    const nextEnabled = (): boolean => {
+        return eventCreationInfos.eventName !== "" && state.owner.mail.includes("@")
+    }
+
     return (
         <Paper elevation={2} className={eventClasses.stepperPaper}>
+            <PaperHeadline text="Allgemeine Informationen" />
             <Typography variant="h5">Informationen zum Event</Typography>
             <TextField
                 error={eventCreationInfos.eventName === ""}
@@ -116,7 +122,7 @@ const Informations = (props: Props) => {
                 }}
             />
             <div className={eventClasses.informationButtonContainer}>
-                <Button onClick={props.next}>{Texts.NEXT}</Button>
+                <Button variant='contained' disabled={!nextEnabled()} onClick={props.next}>{Texts.NEXT}</Button>
             </div>
         </Paper>
     )

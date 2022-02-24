@@ -17,6 +17,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import Texts from '../../texts.json';
 import eventClasses from './event.module.scss';
 import { Button } from '@mui/material';
+import PaperHeadline from '../Common/PaperHeadline';
 
 type Props = {
     back: () => void,
@@ -29,13 +30,14 @@ const Settings = (props: Props) => {
 
     return (
         <Paper className={styles.settingsContainer}>
+            <PaperHeadline text="Optionale Event-Einstellungen" />
             <div className={styles.settingsMiddleContainer}>
                 <div className={styles.iconContainer}>
                     <HelpIcon />
                 </div>
                 <div className={styles.settingsInnerContainer}>
                     <Typography variant="h6">"Ich bin mir nicht sicher" Option</Typography>
-                    <Typography>Gibt den Teilnehmern die Möglichkeit an einem nicht sicher zu zusagen</Typography>
+                    <Typography>Möglichkeit an einem Termin nicht sicher zu zusagen</Typography>
                 </div>
                 <Switch checked={state.settings.optional} onChange={(value) => {
                     const newState: SettingsType = { ...state }
@@ -148,11 +150,12 @@ const Settings = (props: Props) => {
                 }} />
             </div>
             <Divider className={styles.containerDivider} />
+            <Spacer vertical={5} />
             <div className={eventClasses.informationButtonContainerDouble}>
-                <Button onClick={props.back}>{Texts.BACK}</Button>
-                <Button onClick={props.next}>{Texts.NEXT}</Button>
+                <Button variant='contained' onClick={props.back}>{Texts.BACK}</Button>
+                <Button variant='contained' onClick={props.next}>{Texts.NEXT}</Button>
             </div>
-        </Paper>
+        </Paper >
     )
 }
 

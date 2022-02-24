@@ -52,8 +52,6 @@ const CombineDaysAndTimesItem = (props: Props) => {
 
     const displayTimeChipsSuggestion = () => {
         return (<TransitionGroup className={styles.accordionChipContainer}> {getTimeStringsArray(allSlots.times).map((slot) => {
-            console.log(slot)
-
             return (<Grow>
                 <div>
                     <Chip
@@ -104,7 +102,7 @@ const CombineDaysAndTimesItem = (props: Props) => {
                     <Typography variant='h6'>
                         Vorschläge
                     </Typography>
-                    <Button variant='contained' onClick={() => {
+                    <Button variant='outlined' onClick={() => {
                         getTimeStringsArray(allSlots.times).forEach((slot) => {
                             addSlotToUsed(slot)
                         })
