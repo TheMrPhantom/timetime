@@ -16,6 +16,7 @@ import { add, remove } from '../../Actions/CombinedDayTimeAction';
 
 type Props = {
     date: Date
+    expanded?: boolean
 }
 
 const getTimeStringsArray = (inp: Array<Array<Date>>): Array<{ text: string, id: number, start: Date, end: Date }> => {
@@ -30,9 +31,6 @@ const CombineDaysAndTimesItem = (props: Props) => {
     const allSlots: DayTimeCreationType = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
     const usedSlots: CombinedDayTimeType = useSelector((state: RootStateOrAny) => state.combinedDayTime);
     const dispatch = useDispatch()
-
-    const [used, setUsed] = React.useState<Array<{ text: string, id: number, start: Date, end: Date }>>([]);
-    const [unused, setUnused] = React.useState<Array<{ text: string, id: number, start: Date, end: Date }>>();
 
     const addSlotToUsed = (slot: {
         text: string;
@@ -72,7 +70,7 @@ const CombineDaysAndTimesItem = (props: Props) => {
     const displayUsedTime = () => {
         return (<TransitionGroup className={styles.accordionChipContainer}> {usedSlots.slots.map((slot) => {
             if (props.date !== slot.date) {
-                return
+                return <></>
             }
             return (<Grow>
                 <div>
@@ -88,13 +86,16 @@ const CombineDaysAndTimesItem = (props: Props) => {
     }
 
     return (
-        <Accordion className={styles.accordion} defaultExpanded={true}>
+        <Accordion className={styles.accordion} defaultExpanded={props.expanded}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
             >
                 <Typography variant='h6'>{dateToString(props.date)}</Typography>
             </AccordionSummary>
             <AccordionDetails>
+                <Typography variant='h6'>
+                    In Verwendung
+                </Typography>
                 {displayUsedTime()}
                 <Divider />
                 <Spacer vertical={10} />

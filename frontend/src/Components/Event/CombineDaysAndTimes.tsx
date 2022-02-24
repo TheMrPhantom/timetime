@@ -29,12 +29,12 @@ const CombineDaysAndTimes = (props: Props) => {
             <PaperHeadline text="Kombiniere Tage und Zeiten" />
             <Spacer vertical={30} />
             <div className={styles.dateTimeCombineContainerOutter}>
-                {eventCreationInfos.days.map((day: Date) => {
+                {eventCreationInfos.days.map((day: Date, index: number) => {
                     const timesArry: Array<{ time: Array<Date>, id: number }> = []
                     eventCreationInfos.times.forEach(((times: Array<Date>) => {
                         timesArry.push({ time: times, id: secureRandomNumber() })
                     }))
-                    return <CombineDaysAndTimesItem date={day} />
+                    return <CombineDaysAndTimesItem expanded={index === 0} date={day} />
                 })}
 
             </div>

@@ -1,5 +1,5 @@
 import { Button, Chip, Divider, Grow, Paper, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { addDay, addTime, deleteDay, deleteTime } from '../../Actions/DayTimeCreationAction';
 import DayPicker from '../Common/DayPicker';
@@ -11,8 +11,8 @@ import TimePick from '../Common/TimePicker';
 import Spacer from '../Common/Spacer';
 import { TransitionGroup } from 'react-transition-group';
 import Texts from '../../texts.json';
-import CombineDaysAndTimes from './CombineDaysAndTimes';
 import PaperHeadline from '../Common/PaperHeadline';
+import { DayTimeCreationType } from '../../Reducer/DayTimeCreationReducer';
 
 type Props = {
     back: () => void,
@@ -25,12 +25,21 @@ const CreateDaysAndTimes = (props: Props) => {
     const [createDay, setcreateDay] = useState<Date | null | string>(null)
     const [createStart, setcreateStart] = useState<Date | null | string>(null)
     const [createEnd, setcreateEnd] = useState<Date | null | string>(null)
-    const eventCreationInfos = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
+    const eventCreationInfos: DayTimeCreationType = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
     const dispatch = useDispatch()
 
     const nextEnabled = (): boolean => {
         return eventCreationInfos.days.length !== 0 && eventCreationInfos.times.length !== 0
     }
+    useEffect(() => {
+        if (createStart !== null) {
+            const createStartAny: any = createStart
+            const s: Date = new Date(createStartAny)
+            s.setHours(s.getHours() + 1)
+            setcreateEnd(s)
+        }
+    }, [createStart])
+
 
     const displayDateChips = () => {
         if (eventCreationInfos.days.length === 0) {
@@ -50,13 +59,13 @@ const CreateDaysAndTimes = (props: Props) => {
         if (eventCreationInfos.times.length === 0) {
             return <Typography className={commonClasses.errorText}>Noch keine Zeiten hinzugefügt</Typography>
         } else {
-            return (<TransitionGroup className={eventClasses.chipContainer}> {eventCreationInfos.times.map((times: [Date, Date]) => {
+            return (<TransitionGroup className={eventClasses.chipContainer}> {eventCreationInfos.times.map((times: Array<Date>) => {
                 return (<Grow><div><Chip
                     className={eventClasses.fitContentWidth}
                     key={times[0].toISOString() + "time"}
                     label={timeTupleToString(times)}
                     variant="outlined"
-                    onDelete={() => dispatch(deleteTime(times))} /></div></Grow>)
+                    onDelete={() => dispatch(deleteTime([times[0], times[1]]))} /></div></Grow>)
             })}</TransitionGroup>)
         }
     }
@@ -66,22 +75,32 @@ const CreateDaysAndTimes = (props: Props) => {
             <PaperHeadline text="Tage und Uhrzeiten erstellen" />
             <Typography variant="h5">Tage hinzufügen</Typography>
             <div className={eventClasses.createDayContainer}>
-                <DayPicker label='Datum' date={createDay} onValueChange={setcreateDay} />
+                <DayPicker selectedDays={eventCreationInfos.days} label='Datum' date={createDay} onValueChange={setcreateDay} />
                 <PlusMinusButton isRemove={false} onClick={() => {
                     setcreateDay(null);
                     dispatch(addDay(createDay as Date))
                 }} />
             </div>
             {displayDateChips()}
+            <Spacer vertical={30} />
             <Divider />
             <Typography variant="h5">Uhrzeiten hinzufügen</Typography>
             <div className={eventClasses.createDayContainer}>
                 <TimePick label='Von' date={createStart} onValueChange={setcreateStart} />
                 <TimePick label='Bis' date={createEnd} onValueChange={setcreateEnd} />
                 <PlusMinusButton isRemove={false} onClick={() => {
+                    const start: any = createStart;
+                    const end: any = createEnd;
+                    if (new Date(start) > new Date(end)) {
+                        const createStartAny: any = createStart
+                        const s: Date = new Date(createStartAny)
+                        s.setHours(s.getHours() + 1)
+                        setcreateEnd(s)
+                        return
+                    }
                     setcreateStart(null);
-                    setcreateEnd(null)
-                    dispatch(addTime([createStart as Date, createEnd as Date]))
+                    setcreateEnd(null);
+                    dispatch(addTime([createStart as Date, createEnd as Date]));
                 }} />
             </div>
             <div className={eventClasses.chipContainer}>
