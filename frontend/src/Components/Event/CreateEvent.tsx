@@ -70,7 +70,7 @@ const CreateEvent = (props: Props) => {
                 return <Informations next={() => handleNext()} />
             case 1:
                 return <CreateDaysAndTimes back={() => handleBack()} next={() => handleNext()} />
-            case 3:
+            case 2:
                 return <Settings back={() => handleBack()} next={() => handleNext()} />
             default:
                 return <></>
