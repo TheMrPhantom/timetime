@@ -9,6 +9,7 @@ import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [themeCookie, setthemeCookie] = useState(0)
@@ -20,12 +21,14 @@ function App() {
 
   return (
     <ThemeProvider theme={themes[themeCookie]}>
-      <div className="App">
-        <CssBaseline />
-        <Provider store={store}>
-          <Mainpage />
-        </Provider>
-      </div>
+      <Router>
+        <div className="App">
+          <CssBaseline />
+          <Provider store={store}>
+            <Mainpage />
+          </Provider>
+        </div>
+      </Router>
     </ThemeProvider >
   );
 }
