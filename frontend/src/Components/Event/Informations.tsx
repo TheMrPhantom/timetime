@@ -23,7 +23,7 @@ const Informations = (props: Props) => {
     const dispatch = useDispatch()
 
     const nextEnabled = (): boolean => {
-        return eventCreationInfos.eventName !== "" && state.owner.mail.includes("@")
+        return eventCreationInfos.eventName !== "" && (state.owner.mail.length === 0 || state.owner.mail.includes("@"))
     }
 
     return (
@@ -102,7 +102,7 @@ const Informations = (props: Props) => {
                 }}
             />
             <TextField
-                error={!state.owner.mail.includes("@")}
+                error={!state.owner.mail.includes("@") && state.owner.mail.length > 0}
                 id="event-name"
                 label={Texts.E_MAIL}
                 variant="outlined"
