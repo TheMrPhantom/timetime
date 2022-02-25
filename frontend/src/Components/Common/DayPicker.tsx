@@ -17,11 +17,10 @@ type Props = {
 
 const DayPicker = (props: Props) => {
 
-    const isDate = !Number.isNaN(props.date?.valueOf())
-
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={deLocale} >
             <DatePicker
+
                 label={props.label}
                 value={props.date}
                 renderDay={(day, selected, DayProps) => {
@@ -37,7 +36,7 @@ const DayPicker = (props: Props) => {
                 onChange={(newValue) => {
                     props.onValueChange(newValue as Date);
                 }}
-                renderInput={(params) => <TextField variant='outlined'{...params} className={styles.daypicker} error={!isDate || (props.date as Date)?.toISOString() === ""} />}
+                renderInput={(params) => <TextField variant='outlined'{...params} className={styles.daypicker} error={props.date !== null && (props.date as Date) < new Date()} />}
             />
         </LocalizationProvider>
     )
