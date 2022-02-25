@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -31,6 +31,13 @@ const CombineDaysAndTimesItem = (props: Props) => {
     const allSlots: DayTimeCreationType = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
     const usedSlots: CombinedDayTimeType = useSelector((state: RootStateOrAny) => state.combinedDayTime);
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        getTimeStringsArray(allSlots.times).forEach((value) => {
+            addSlotToUsed(value)
+        })
+    }, [])
+
 
     const addSlotToUsed = (slot: {
         text: string;
@@ -85,12 +92,24 @@ const CombineDaysAndTimesItem = (props: Props) => {
         })}</TransitionGroup>)
     }
 
+    const displayUsedTimeHeader = () => {
+        return (<div className={styles.accordionHeaderDivInner}> {usedSlots.slots.map((slot) => {
+            if (props.date !== slot.date) {
+                return <></>
+            }
+            return (<Typography variant='caption'>{timeTupleToString([slot.start, slot.end])}</Typography>)
+        })}</div>)
+    }
+
     return (
         <Accordion className={styles.accordion} defaultExpanded={props.expanded}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
             >
-                <Typography variant='h6'>{dateToString(props.date)}</Typography>
+                <div className={styles.accordionHeaderDiv}>
+                    <Typography variant='h6'>{dateToString(props.date)}</Typography>
+                    {displayUsedTimeHeader()}
+                </div>
             </AccordionSummary>
             <AccordionDetails>
                 <Typography variant='h6'>

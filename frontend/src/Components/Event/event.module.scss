@@ -144,3 +144,19 @@
     max-width: 800px;
     padding: $padding;
 }
+
+.accordionHeaderDiv {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    gap: $flex-gap;
+}
+
+.accordionHeaderDivInner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: $flex-gap;
+}
