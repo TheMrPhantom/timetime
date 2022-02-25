@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../Header/Header'
 import CreateEvent from "../Event/CreateEvent"
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Participate from '../Participation/Participate';
 type Props = {}
 

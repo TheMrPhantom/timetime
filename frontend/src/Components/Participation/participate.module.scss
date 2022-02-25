@@ -1,0 +1,75 @@
+@import "../Common/variables.module.scss";
+
+.participatePageContainer {
+    display: flex;
+    gap: $flex-gap;
+    padding: $padding;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.accordionContainer {
+    display: flex;
+    padding: $padding;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.participantBadge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $flex-gap;
+}
+
+.nameContainer {
+    display: flex;
+    gap: $flex-gap;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.headlineContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.outterHeadlineContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $flex-gap;
+}
+
+.participatePageSubContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.personInfos {
+    margin: $padding;
+    padding: $padding;
+    gap: $flex-gap;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sendButton {
+    width: 150px;
+    height: 50px;
+}
+
+.accordionActions {
+    padding-left: $padding;
+    padding-right: $padding;
+}
