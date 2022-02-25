@@ -27,7 +27,6 @@ const CreateDaysAndTimes = (props: Props) => {
     const [createEnd, setcreateEnd] = useState<Date | null | string>(null)
     const eventCreationInfos: DayTimeCreationType = useSelector((state: RootStateOrAny) => state.dayTimeCreation);
     const dispatch = useDispatch()
-
     const nextEnabled = (): boolean => {
         return eventCreationInfos.days.length !== 0 && eventCreationInfos.times.length !== 0
     }
@@ -40,6 +39,12 @@ const CreateDaysAndTimes = (props: Props) => {
         }
     }, [createStart])
 
+    useEffect(() => {
+        if (createDay !== null && !Number.isNaN(createDay.valueOf()) && new Date() < createDay) {
+            dispatch(addDay(createDay as Date))
+            setcreateDay(null);
+        }
+    }, [createDay, dispatch])
 
     const displayDateChips = () => {
         if (eventCreationInfos.days.length === 0) {
@@ -76,10 +81,7 @@ const CreateDaysAndTimes = (props: Props) => {
             <Typography variant="h5">Tage hinzufügen</Typography>
             <div className={eventClasses.createDayContainer}>
                 <DayPicker selectedDays={eventCreationInfos.days} label='Datum' date={createDay} onValueChange={setcreateDay} />
-                <PlusMinusButton isRemove={false} onClick={() => {
-                    setcreateDay(null);
-                    dispatch(addDay(createDay as Date))
-                }} />
+
             </div>
             {displayDateChips()}
             <Spacer vertical={30} />
