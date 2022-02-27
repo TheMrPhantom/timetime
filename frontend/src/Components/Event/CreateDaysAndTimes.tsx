@@ -304,15 +304,21 @@ const CreateDaysAndTimes = (props: Props) => {
     }
 
     const handleMouseUp = (id: number) => {
-        if (mouseDownDay !== id) {
-            selectDay(id, true)
+        if (!window.matchMedia("(pointer: coarse)").matches) {
+            if (mouseDownDay !== id) {
+                selectDay(id, true)
+            }
+            setmouseDownDay(-1)
         }
-        setmouseDownDay(-1)
     }
 
     const handleMouseDown = (id: number) => {
-        selectDay(id, false)
-        setmouseDownDay(id)
+        if (window.matchMedia("(pointer: coarse)").matches) {
+            selectDay(id, false)
+        } else {
+            selectDay(id, false)
+            setmouseDownDay(id)
+        }
     }
 
     const handleMouseOver = (id: number) => {
