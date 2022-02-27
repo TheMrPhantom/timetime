@@ -1,16 +1,8 @@
 import { combineReducers } from "redux";
-import DayTimeCreationReducer from "./DayTimeCreationReducer";
-import EventCreationInformationReducer from "./EventCreationInformationReducer";
-import CombinedDayTimeReducer from "./CombinedDayTimeReducer";
-import EventSettingsReducer from "./EventSettingsReducer";
-import EventOwnerReducer from "./EventOwnerReducer";
+import CreateEventReducer from "./CreateEventReducer";
 
 const allReducer = combineReducers({
-    eventCreationInfo: EventCreationInformationReducer,
-    dayTimeCreation: DayTimeCreationReducer,
-    combinedDayTime: CombinedDayTimeReducer,
-    eventSettings: EventSettingsReducer,
-    ownerSettings: EventOwnerReducer
+    createEvent: CreateEventReducer
 })
 
 export default allReducer;

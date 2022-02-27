@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import React from 'react'
 import { RootStateOrAny, useDispatch } from 'react-redux'
 import styles from './event.module.scss'
-import { SettingsType } from '../../Reducer/EventSettingsReducer';
-import { setSettings } from '../../Actions/EventSettingsAction';
 import Spacer from '../Common/Spacer';
 import DayPicker from '../Common/DayPicker';
 
@@ -18,6 +16,8 @@ import Texts from '../../texts.json';
 import eventClasses from './event.module.scss';
 import { Button } from '@mui/material';
 import PaperHeadline from '../Common/PaperHeadline';
+import { EventCreationType } from '../../Reducer/CreateEventReducer';
+import { setSettingsDeadlineEventCreation, setSettingsHasDeadlineEventCreation, setSettingsHasMaxPartEventCreation, setSettingsMaxPartEventCreation, setSettingsOnlyOneEventCreation, setSettingsOptionalEventCreation, setSettingsSecretEventCreation, setSettingsSendResultEventCreation } from '../../Actions/CreateEventAction';
 
 type Props = {
     back: () => void,
@@ -25,7 +25,7 @@ type Props = {
 }
 
 const Settings = (props: Props) => {
-    const state: SettingsType = useSelector((state: RootStateOrAny) => state.eventSettings);
+    const state: EventCreationType = useSelector((state: RootStateOrAny) => state.createEvent);
     const dispatch = useDispatch()
 
     return (
@@ -40,9 +40,7 @@ const Settings = (props: Props) => {
                     <Typography>Möglichkeit an einem Termin nicht sicher zu zusagen</Typography>
                 </div>
                 <Switch checked={state.settings.optional} onChange={(value) => {
-                    const newState: SettingsType = { ...state }
-                    newState.settings.optional = value.target.checked
-                    dispatch(setSettings(newState))
+                    dispatch(setSettingsOptionalEventCreation(value.target.checked))
                 }} />
             </div>
             <Divider className={styles.containerDivider} />
@@ -61,18 +59,14 @@ const Settings = (props: Props) => {
                                 type="number"
                                 value={state.settings.maxParticipants}
                                 onChange={(value) => {
-                                    const newState: SettingsType = { ...state }
-                                    newState.settings.maxParticipants = Number.parseInt(value.target.value)
-                                    dispatch(setSettings(newState))
+                                    dispatch(setSettingsMaxPartEventCreation(Number.parseInt(value.target.value)))
                                 }} />
                         </div>
                     </Collapse>
                 </div>
 
                 <Switch checked={state.settings.hasMaxParticipants} onChange={(value) => {
-                    const newState: SettingsType = { ...state }
-                    newState.settings.hasMaxParticipants = value.target.checked
-                    dispatch(setSettings(newState))
+                    dispatch(setSettingsHasMaxPartEventCreation(value.target.checked))
                 }} />
 
             </div>
@@ -86,9 +80,7 @@ const Settings = (props: Props) => {
                     <Typography>Teilnehmer können sich nur zu einem Zeitlot eintragen</Typography>
                 </div>
                 <Switch checked={state.settings.onlyOneOption} onChange={(value) => {
-                    const newState: SettingsType = { ...state }
-                    newState.settings.onlyOneOption = value.target.checked
-                    dispatch(setSettings(newState))
+                    dispatch(setSettingsOnlyOneEventCreation(value.target.checked))
                 }} />
             </div>
             <Divider className={styles.containerDivider} />
@@ -101,9 +93,7 @@ const Settings = (props: Props) => {
                     <Typography>Teilnehmer sehen nicht, was andere Teilnehmer bei der Umfrage angegeben haben. Der Ersteller sieht weiterhin alle Antworten.</Typography>
                 </div>
                 <Switch checked={state.settings.secretPoll} onChange={(value) => {
-                    const newState: SettingsType = { ...state }
-                    newState.settings.secretPoll = value.target.checked
-                    dispatch(setSettings(newState))
+                    dispatch(setSettingsSecretEventCreation(value.target.checked))
                 }} />
             </div>
             <Divider className={styles.containerDivider} />
@@ -118,9 +108,7 @@ const Settings = (props: Props) => {
                         <div>
                             <Spacer vertical={20} />
                             <DayPicker label='Datum' date={state.settings.deadline} onValueChange={(value: Date | null) => {
-                                const newState: SettingsType = { ...state }
-                                newState.settings.deadline = value !== null ? value : new Date()
-                                dispatch(setSettings(newState))
+                                dispatch(setSettingsDeadlineEventCreation(value !== null ? value : new Date()))
                             }} />
 
                         </div>
@@ -128,9 +116,7 @@ const Settings = (props: Props) => {
                 </div>
 
                 <Switch checked={state.settings.hasDeadline} onChange={(value) => {
-                    const newState: SettingsType = { ...state }
-                    newState.settings.hasDeadline = value.target.checked
-                    dispatch(setSettings(newState))
+                    dispatch(setSettingsHasDeadlineEventCreation(value.target.checked))
                 }} />
             </div>
             <Divider className={styles.containerDivider} />
@@ -144,9 +130,7 @@ const Settings = (props: Props) => {
 
                 </div>
                 <Switch checked={state.settings.sendResult} onChange={(value) => {
-                    const newState: SettingsType = { ...state }
-                    newState.settings.sendResult = value.target.checked
-                    dispatch(setSettings(newState))
+                    dispatch(setSettingsSendResultEventCreation(value.target.checked))
                 }} />
             </div>
             <Divider className={styles.containerDivider} />

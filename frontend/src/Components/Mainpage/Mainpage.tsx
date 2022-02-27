@@ -3,6 +3,7 @@ import Header from '../Header/Header'
 import CreateEvent from "../Event/CreateEvent"
 import { Route, Routes } from 'react-router-dom';
 import Participate from '../Participation/Participate';
+
 type Props = {}
 
 const Mainpage = (props: Props) => {

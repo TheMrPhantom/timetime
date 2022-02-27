@@ -1,5 +1,13 @@
 @import "../Common/variables.module.scss";
 
+$day-background: #eaeaea;
+$day-hover: #cacaca;
+$day-border: #999999;
+$day-border-selected: hsl(64, 49%, 35%);
+$day-background-selected: hsl(64, 49%, 54%);
+$day-height: 12px;
+$list-item-hover: #fafafa;
+
 .stepperPaper {
     width: 60%;
     min-width: 200px;
@@ -159,4 +167,132 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: $flex-gap;
+}
+
+.daysContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    column-gap: 10px;
+
+    .day {
+        height: $day-height;
+        width: 80px;
+        background-color: $day-background;
+        border-bottom: 1px dotted $day-border;
+        border-right: 1px solid $day-border;
+        border-left: 1px solid $day-border;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+
+        /*Text unselectable*/
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+
+        &:hover {
+            background-color: $day-hover;
+        }
+
+        &.first {
+            border-top: 1px solid $day-border;
+            height: $day-height + 1;
+        }
+
+        &.hour {
+            border-bottom: 1px solid $day-border;
+        }
+
+        &.last {
+            border-bottom: 1px solid $day-border;
+        }
+
+        &.selection {
+            background-color: $day-background-selected;
+            border-left: 2px solid $day-border-selected;
+            border-right: 2px solid $day-border-selected;
+            &:hover {
+                background-color: $day-hover;
+            }
+        }
+
+        &.selectionStart {
+            background-color: $day-background-selected;
+            border-left: 2px solid $day-border-selected;
+            border-right: 2px solid $day-border-selected;
+            border-top: 2px solid $day-border-selected;
+            &:hover {
+                background-color: $day-hover;
+            }
+        }
+
+        &.selectionEnd {
+            background-color: $day-background-selected;
+            border-left: 2px solid $day-border-selected;
+            border-right: 2px solid $day-border-selected;
+            border-bottom: 2px solid $day-border-selected;
+            &:hover {
+                background-color: $day-hover;
+            }
+        }
+    }
+}
+
+.legendContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    .legendItem {
+        border-top: 1px solid $day-border;
+        height: ($day-height * 4);
+        padding-right: $padding;
+    }
+}
+
+.outterTableContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: $flex-gap;
+}
+
+.innerTableContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.timeFlex {
+    display: flex;
+    column-gap: 100px;
+    row-gap: $flex-gap;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.leftTimesContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: $flex-gap;
+    align-items: flex-start;
+}
+
+.timeContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.addedSlotListItem {
+    &:hover {
+        background-color: $list-item-hover;
+    }
 }

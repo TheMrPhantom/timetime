@@ -4,26 +4,23 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import Texts from '../../texts.json'
 import eventClasses from './event.module.scss';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { setInfos, setName, setPlace } from '../../Actions/EventCreationInformationAction';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
-import { OwnerType } from '../../Reducer/EventOwnerReducer';
-import { setOwner } from '../../Actions/EventOwnerAction';
 import Spacer from '../Common/Spacer';
 import PaperHeadline from '../Common/PaperHeadline';
+import { EventCreationType } from '../../Reducer/CreateEventReducer';
+import { setEventInformationsEventCreation, setEventNameEventCreation, setEventOwnerMailEventCreation, setEventOwnerNameEventCreation, setEventPlaceEventCreation } from '../../Actions/CreateEventAction';
 
 type Props = {
     next: () => void
 }
 
 const Informations = (props: Props) => {
-    const eventCreationInfos = useSelector((state: RootStateOrAny) => state.eventCreationInfo);
-    const state: OwnerType = useSelector((state: RootStateOrAny) => state.ownerSettings);
-
+    const state: EventCreationType = useSelector((state: RootStateOrAny) => state.createEvent);
     const dispatch = useDispatch()
 
     const nextEnabled = (): boolean => {
-        return eventCreationInfos.eventName !== "" && (state.owner.mail.length === 0 || state.owner.mail.includes("@"))
+        return state.eventInformations.name !== "" && (state.eventInformations.owner.mail.length === 0 || state.eventInformations.owner.mail.includes("@"))
     }
 
     return (
@@ -31,12 +28,12 @@ const Informations = (props: Props) => {
             <PaperHeadline text="Allgemeine Informationen" />
             <Typography variant="h5">Informationen zum Event</Typography>
             <TextField
-                error={eventCreationInfos.eventName === ""}
+                error={state.eventInformations.name === ""}
                 id="event-name"
                 label={Texts.EVENT_NAME_LABEL}
                 variant="outlined"
-                value={eventCreationInfos.eventName}
-                onChange={(value) => dispatch(setName(value.target.value))}
+                value={state.eventInformations.name}
+                onChange={(value) => dispatch(setEventNameEventCreation(value.target.value))}
                 className={eventClasses.textFields}
                 InputProps={{
                     endAdornment: (
@@ -50,8 +47,8 @@ const Informations = (props: Props) => {
                 id="event-place"
                 label={Texts.EVENT_PLACE_LABEL}
                 variant="outlined"
-                value={eventCreationInfos.eventPlace}
-                onChange={(value) => dispatch(setPlace(value.target.value))}
+                value={state.eventInformations.place}
+                onChange={(value) => dispatch(setEventPlaceEventCreation(value.target.value))}
                 className={eventClasses.textFields}
                 InputProps={{
                     endAdornment: (
@@ -65,8 +62,8 @@ const Informations = (props: Props) => {
                 id="event-infos"
                 label={Texts.EVENT_INFO_LABEL}
                 variant="outlined"
-                value={eventCreationInfos.eventInfo}
-                onChange={(value) => dispatch(setInfos(value.target.value))}
+                value={state.eventInformations.informations}
+                onChange={(value) => dispatch(setEventInformationsEventCreation(value.target.value))}
                 className={eventClasses.textFields}
                 multiline
                 minRows={4}
@@ -87,11 +84,9 @@ const Informations = (props: Props) => {
                 label={Texts.NAME}
                 variant="outlined"
                 className={eventClasses.textFields}
-                value={state.owner.name}
+                value={state.eventInformations.owner.name}
                 onChange={(value) => {
-                    const newState: OwnerType = { ...state }
-                    newState.owner.name = value.target.value
-                    dispatch(setOwner(newState))
+                    dispatch(setEventOwnerNameEventCreation(value.target.value))
                 }}
                 InputProps={{
                     endAdornment: (
@@ -102,16 +97,14 @@ const Informations = (props: Props) => {
                 }}
             />
             <TextField
-                error={!state.owner.mail.includes("@") && state.owner.mail.length > 0}
+                error={!state.eventInformations.owner.mail.includes("@") && state.eventInformations.owner.mail.length > 0}
                 id="event-name"
                 label={Texts.E_MAIL}
                 variant="outlined"
                 className={eventClasses.textFields}
-                value={state.owner.mail}
+                value={state.eventInformations.owner.mail}
                 onChange={(value) => {
-                    const newState: OwnerType = { ...state }
-                    newState.owner.mail = value.target.value
-                    dispatch(setOwner(newState))
+                    dispatch(setEventOwnerMailEventCreation(value.target.value))
                 }}
                 InputProps={{
                     endAdornment: (
