@@ -6,6 +6,7 @@ $day-border: #999999;
 $day-border-selected: hsl(64, 49%, 35%);
 $day-background-selected: hsl(64, 49%, 54%);
 $day-height: 12px;
+$day-height-mobile: 20px;
 $list-item-hover: #fafafa;
 
 .stepperPaper {
@@ -177,7 +178,10 @@ $list-item-hover: #fafafa;
 
     .day {
         height: $day-height;
-        width: 80px;
+        @media (max-width: $COMPACT_SIZE_THRESHOLD) {
+            height: $day-height-mobile;
+        }
+        width: 75px;
         background-color: $day-background;
         border-bottom: 1px dotted $day-border;
         border-right: 1px solid $day-border;
@@ -195,14 +199,18 @@ $list-item-hover: #fafafa;
         -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* IE10+/Edge */
         user-select: none; /* Standard */
-
-        &:hover {
-            background-color: $day-hover;
+        @media (hover: hover) {
+            &:hover {
+                background-color: $day-hover;
+            }
         }
 
         &.first {
             border-top: 1px solid $day-border;
             height: $day-height + 1;
+            @media (max-width: $COMPACT_SIZE_THRESHOLD) {
+                height: $day-height-mobile + 1;
+            }
         }
 
         &.hour {
@@ -217,8 +225,10 @@ $list-item-hover: #fafafa;
             background-color: $day-background-selected;
             border-left: 2px solid $day-border-selected;
             border-right: 2px solid $day-border-selected;
-            &:hover {
-                background-color: $day-hover;
+            @media (hover: hover) {
+                &:hover {
+                    background-color: $day-hover;
+                }
             }
         }
 
@@ -227,8 +237,10 @@ $list-item-hover: #fafafa;
             border-left: 2px solid $day-border-selected;
             border-right: 2px solid $day-border-selected;
             border-top: 2px solid $day-border-selected;
-            &:hover {
-                background-color: $day-hover;
+            @media (hover: hover) {
+                &:hover {
+                    background-color: $day-hover;
+                }
             }
         }
 
@@ -237,8 +249,10 @@ $list-item-hover: #fafafa;
             border-left: 2px solid $day-border-selected;
             border-right: 2px solid $day-border-selected;
             border-bottom: 2px solid $day-border-selected;
-            &:hover {
-                background-color: $day-hover;
+            @media (hover: hover) {
+                &:hover {
+                    background-color: $day-hover;
+                }
             }
         }
     }
@@ -251,6 +265,9 @@ $list-item-hover: #fafafa;
     .legendItem {
         border-top: 1px solid $day-border;
         height: ($day-height * 4);
+        @media (max-width: $COMPACT_SIZE_THRESHOLD) {
+            height: ($day-height-mobile * 4);
+        }
         padding-right: $padding;
     }
 }
