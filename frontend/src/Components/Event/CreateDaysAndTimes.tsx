@@ -151,7 +151,10 @@ const CreateDaysAndTimes = (props: Props) => {
         </div>
     }
 
-    const timeIDToTime = (timeID: number): { hour: number, minute: number } => {
+    const timeIDToTime = (timeID: number, isEnd: boolean): { hour: number, minute: number } => {
+        if (isEnd) {
+            timeID += 1
+        }
         const hour: number = Math.floor(timeID / 4);
         const rest: number = (timeID / 4) - hour;
         const minute: number = rest * 60
@@ -159,8 +162,8 @@ const CreateDaysAndTimes = (props: Props) => {
     }
 
     const idTimeToString = (times: Array<number>): string => {
-        const start = timeIDToTime(times[0])
-        const end = timeIDToTime(times[1])
+        const start = timeIDToTime(times[0], false)
+        const end = timeIDToTime(times[1], true)
 
         var output = ""
         output += start.hour + ":" + start.minute.toString().padStart(2, '0')
@@ -202,8 +205,8 @@ const CreateDaysAndTimes = (props: Props) => {
                 times: []
             }
             times.forEach((timeSlot) => {
-                const start = timeIDToTime(timeSlot[0])
-                const end = timeIDToTime(timeSlot[1])
+                const start = timeIDToTime(timeSlot[0], false)
+                const end = timeIDToTime(timeSlot[1], true)
                 const startDate = new Date()
                 const endDate = new Date()
 
