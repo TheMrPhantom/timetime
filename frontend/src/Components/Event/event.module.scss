@@ -227,7 +227,7 @@ $list-item-hover: #fafafa;
             border-right: 2px solid $day-border-selected;
             @media (hover: hover) {
                 &:hover {
-                    background-color: $day-hover;
+                    background-color: hsl(hue($day-background-selected), 100%, 32%);
                 }
             }
         }
@@ -239,7 +239,7 @@ $list-item-hover: #fafafa;
             border-top: 2px solid $day-border-selected;
             @media (hover: hover) {
                 &:hover {
-                    background-color: $day-hover;
+                    background-color: hsl(hue($day-background-selected), 100%, 32%);
                 }
             }
         }
@@ -251,7 +251,7 @@ $list-item-hover: #fafafa;
             border-bottom: 2px solid $day-border-selected;
             @media (hover: hover) {
                 &:hover {
-                    background-color: $day-hover;
+                    background-color: hsl(hue($day-background-selected), 100%, 32%);
                 }
             }
         }
