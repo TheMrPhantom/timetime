@@ -36,9 +36,14 @@ const CreateDaysAndTimes = (props: Props) => {
             if (selectedTimes[0] <= id) {
 
                 const temp_times = times;
-                temp_times.push([selectedTimes[0], id])
+                const to_add = [selectedTimes[0], id];
+                if (!temp_times.some((element) => element[0] === to_add[0] && element[1] === to_add[1])) {
+                    temp_times.push(to_add)
+                    settimes(temp_times)
+                } else {
+                    alert("Zeit bereits hinzugefügt")
+                }
 
-                settimes(temp_times)
                 setselectedTimes([-1, -1])
                 setselectedDaysAmount(0)
             } else {
@@ -189,7 +194,7 @@ const CreateDaysAndTimes = (props: Props) => {
                             </ListItem>)
                     })}
                 </List>
-                <Button fullWidth onClick={() => { settimes([]); setselectedTimes([-1, -1]) }} disabled={times.length === 0}>Zeiten Zurücksetzen</Button>
+                <Button fullWidth onClick={() => { settimes([]); setselectedTimes([-1, -1]); setselectedDaysAmount(0) }} disabled={times.length === 0}>Zeiten Zurücksetzen</Button>
             </>
         } else {
             return <><Typography>Noch keine Zeiten </Typography><Spacer vertical={30} /></>
@@ -282,7 +287,7 @@ const CreateDaysAndTimes = (props: Props) => {
 
                     </div>
                     <Divider style={{ width: "100%" }} />
-                    <Button variant='contained' fullWidth onClick={() => addDayToState()} disabled={times.length === 0}>Tag Hinzufügen</Button>
+                    <Button variant='contained' fullWidth onClick={() => addDayToState()} disabled={times.length === 0 || date === null || date < new Date()}>Tag Hinzufügen</Button>
 
                 </div>
                 {createDaySlider()}
