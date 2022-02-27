@@ -24,16 +24,21 @@ const CreateDaysAndTimes = (props: Props) => {
     const [selectedTimes, setselectedTimes] = useState([-1, -1])
     const [date, setdate] = useState<Date | null>(null)
     const [times, settimes] = useState<Array<Array<number>>>([])
+    const [mouseDownDay, setmouseDownDay] = useState(-1)
     const state: EventCreationType = useSelector((state: RootStateOrAny) => state.createEvent);
     const dispatch = useDispatch()
 
-    const selectDay = (id: number) => {
-        const newSelectedDaysAmount = ((selectedDaysAmount) % 2) + 1
+    const selectDay = (id: number, hover: boolean) => {
+        var newSelectedDaysAmount = selectedDaysAmount
+        if (!hover) {
+            newSelectedDaysAmount = ((selectedDaysAmount) % 2) + 1
+        }
+
         setselectedDaysAmount(newSelectedDaysAmount)
         if (newSelectedDaysAmount === 1) {
             setselectedTimes([id, -1])
         } else {
-            if (selectedTimes[0] <= id) {
+            if (selectedTimes[0] <= id && selectedTimes[0] !== -1 && id !== -1) {
 
                 const temp_times = times;
                 const to_add = [selectedTimes[0], id];
@@ -103,14 +108,18 @@ const CreateDaysAndTimes = (props: Props) => {
         const firstRow = [];
 
         firstRow.push(<div className={styles.day + " " + styles.first + " " + getSelectedClasses(0)}
-            onClick={(value) => selectDay(0)} >
-
+            onMouseDown={(value) => handleMouseDown(0)}
+            onMouseUp={(value) => handleMouseUp(0)}
+            onMouseOver={(value) => handleMouseOver(0)}
+        >
         </div >)
         for (let i = 0; i < 24 * 2 - 1; i++) {
 
             firstRow.push(<div
                 className={styles.day + getSelectedClasses(i + 1)}
-                onClick={(value) => { selectDay(i + 1) }}
+                onMouseDown={(value) => handleMouseDown(i + 1)}
+                onMouseUp={(value) => handleMouseUp(i + 1)}
+                onMouseOver={(value) => handleMouseOver(i + 1)}
             >
             </div >)
         }
@@ -118,7 +127,10 @@ const CreateDaysAndTimes = (props: Props) => {
         const secondRow = [];
 
         secondRow.push(<div className={styles.day + " " + styles.first + " " + getSelectedClasses(48)}
-            onClick={(value) => selectDay(48)} >
+            onMouseDown={(value) => handleMouseDown(48)}
+            onMouseUp={(value) => handleMouseUp(48)}
+            onMouseOver={(value) => handleMouseOver(48)}
+        >
 
         </div >)
         for (let i = 45; i < 23 * 4; i++) {
@@ -126,7 +138,9 @@ const CreateDaysAndTimes = (props: Props) => {
             secondRow.push(
                 <div
                     className={styles.day + getSelectedClasses(i + 4)}
-                    onClick={(value) => { selectDay(i + 4) }}
+                    onMouseDown={(value) => handleMouseDown(i + 4)}
+                    onMouseUp={(value) => handleMouseUp(i + 4)}
+                    onMouseOver={(value) => handleMouseOver(i + 4)}
                 >
                 </div >)
         }
@@ -135,7 +149,7 @@ const CreateDaysAndTimes = (props: Props) => {
 
         const secondLegend = getLegend(12)
 
-        return <div className={styles.outterTableContainer}>
+        return <div className={styles.outterTableContainer} onMouseLeave={() => { handleMouseLeave() }}>
             <div className={styles.innerTableContainer}>
                 <div className={styles.legendContainer}>
                     {firstLegend}
@@ -184,15 +198,28 @@ const CreateDaysAndTimes = (props: Props) => {
         if (times.length > 0) {
             return <>
                 <List>
-                    {times.map((time) => {
-                        return (
-                            <ListItem >
-                                <ListItemIcon>
-                                    <AccessTimeIcon />
-                                </ListItemIcon>
-                                {idTimeToString(time)}
-                            </ListItem>)
-                    })}
+                    <TransitionGroup>
+                        {times.sort((a, b) => {
+                            const timeA = timeIDToTime(a[0], false)
+                            const timeB = timeIDToTime(b[0], false)
+                            return (timeA.hour * 60 + timeA.minute) - (timeB.hour * 60 + timeB.minute)
+                        }).map((time) => {
+                            return (<Collapse key={time.toString() + "collapse"}>
+                                <ListItem secondaryAction={
+                                    <IconButton edge="end" onClick={() => {
+                                        removeTimeslot(time)
+                                    }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                }>
+                                    <ListItemIcon>
+                                        <AccessTimeIcon />
+                                    </ListItemIcon>
+                                    {idTimeToString(time)}
+
+                                </ListItem></Collapse>)
+                        })}
+                    </TransitionGroup>
                 </List>
                 <Button fullWidth onClick={() => { settimes([]); setselectedTimes([-1, -1]); setselectedDaysAmount(0) }} disabled={times.length === 0}>Zeiten Zurücksetzen</Button>
             </>
@@ -225,9 +252,6 @@ const CreateDaysAndTimes = (props: Props) => {
             })
             dispatch(addDayToEventCreation(toAdd))
             setdate(null)
-            //settimes([])
-            //setselectedDaysAmount(0)
-            //setselectedTimes([-1, -1])
         } else {
             alert("Datum ist in der vergangenheit oder keine Zeiten angegeben")
         }
@@ -271,6 +295,44 @@ const CreateDaysAndTimes = (props: Props) => {
 
     const nextEnabled = (): boolean => {
         return state.timeslots.days.length > 0
+    }
+
+    const removeTimeslot = (slot: number[]) => {
+        settimes(times.filter((element) => {
+            return element[0] !== slot[0] && element[1] !== slot[1]
+        }))
+    }
+
+    const handleMouseUp = (id: number) => {
+        if (mouseDownDay !== id) {
+            selectDay(id, true)
+        }
+        setmouseDownDay(-1)
+    }
+
+    const handleMouseDown = (id: number) => {
+        selectDay(id, false)
+        setmouseDownDay(id)
+    }
+
+    const handleMouseOver = (id: number) => {
+        if (mouseDownDay !== -1 && selectedTimes[0] !== -1) {
+            if (mouseDownDay !== id) {
+                setselectedTimes([selectedTimes[0], id])
+                setselectedDaysAmount(2)
+            } else {
+                setselectedTimes([selectedTimes[0], -1])
+                setselectedDaysAmount(1)
+            }
+        }
+    }
+
+    const handleMouseLeave = () => {
+        if (mouseDownDay !== -1 && selectedTimes[0] !== -1) {
+            setselectedTimes([selectedTimes[0], -1])
+            setselectedDaysAmount(1)
+            setmouseDownDay(-1)
+        }
     }
 
     return (
