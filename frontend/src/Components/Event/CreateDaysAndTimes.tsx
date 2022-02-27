@@ -1,4 +1,4 @@
-import { Button, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material'
+import { Button, Collapse, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import DayPicker from '../Common/DayPicker'
 import styles from './event.module.scss'
@@ -11,6 +11,7 @@ import EventIcon from '@mui/icons-material/Event';
 import { dateToString, timeTupleToString } from '../Common/StaticFunctions';
 import Texts from '../../texts.json'
 import DeleteIcon from '@mui/icons-material/Delete';
+import { TransitionGroup } from 'react-transition-group';
 
 type Props = {
     back: () => void,
@@ -219,9 +220,9 @@ const CreateDaysAndTimes = (props: Props) => {
             })
             dispatch(addDayToEventCreation(toAdd))
             setdate(null)
-            settimes([])
-            setselectedDaysAmount(0)
-            setselectedTimes([-1, -1])
+            //settimes([])
+            //setselectedDaysAmount(0)
+            //setselectedTimes([-1, -1])
         } else {
             alert("Datum ist in der vergangenheit oder keine Zeiten angegeben")
         }
@@ -231,29 +232,31 @@ const CreateDaysAndTimes = (props: Props) => {
         if (state.timeslots.days.length > 0) {
             return <>
                 <List >
-                    {state.timeslots.days.map((time) => {
-                        return (
-                            <ListItem className={styles.addedSlotListItem} secondaryAction={
-                                <IconButton edge="end" onClick={() => {
-                                    dispatch(removeDayFromEventCreation(time.id))
-                                }}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            }>
-                                <ListItemIcon>
-                                    <EventIcon />
-                                </ListItemIcon>
-                                <ListItemText secondary={time.times.map((value, index) => {
-                                    if (index < time.times.length - 1) {
-                                        return timeTupleToString(value) + "  /  "
-                                    } else {
-                                        return timeTupleToString(value)
-                                    }
-                                })} primary={dateToString(time.day)} />
+                    <TransitionGroup>
+                        {state.timeslots.days.map((time) => {
+                            return (<Collapse key={time.id + "collapse"}>
+                                <ListItem className={styles.addedSlotListItem} secondaryAction={
+                                    <IconButton edge="end" onClick={() => {
+                                        dispatch(removeDayFromEventCreation(time.id))
+                                    }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                }>
+                                    <ListItemIcon>
+                                        <EventIcon />
+                                    </ListItemIcon>
+                                    <ListItemText secondary={time.times.map((value, index) => {
+                                        if (index < time.times.length - 1) {
+                                            return timeTupleToString(value) + "  /  "
+                                        } else {
+                                            return timeTupleToString(value)
+                                        }
+                                    })} primary={dateToString(time.day)} />
 
 
-                            </ListItem>)
-                    })}
+                                </ListItem></Collapse>)
+                        })}
+                    </TransitionGroup>
                 </List>
             </>
         } else {
