@@ -13,7 +13,7 @@ const Mainpage = (props: Props) => {
             <Header open={false} />
             <Routes>
                 <Route path="/create" element={<CreateEvent />} />
-                <Route path="/poll" element={<Participate />} />
+                <Route path="/poll/:pollUrl" element={<Participate />} />
             </Routes>
         </>
     )

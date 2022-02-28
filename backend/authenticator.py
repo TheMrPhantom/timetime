@@ -3,10 +3,6 @@ import secrets
 import hashlib
 import util
 
-passwordList = []
-with open('words.txt') as reader:
-    passwordList = reader.readlines()
-
 
 class TokenManager:
     def __init__(self):
@@ -35,14 +31,6 @@ class TokenManager:
 
     def delete_token(self, token):
         del(self.token_storage[token])
-
-    def getPassword(passwordLength=3):
-        output = ""
-        for i in range(passwordLength):
-            chosen = secrets.choice(passwordList)
-            output += chosen.replace("\n", "")
-
-        return output
 
     def hashPassword(password, salt=None):
         usedSalt = secrets.token_hex(32) if salt is None else salt

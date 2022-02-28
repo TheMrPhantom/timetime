@@ -73,3 +73,13 @@
     padding-left: $padding;
     padding-right: $padding;
 }
+
+.tableContainer {
+    max-width: 900px;
+}
+
+.tableRowContainer {
+    &:hover {
+        background-color: $list-item-hover;
+    }
+}

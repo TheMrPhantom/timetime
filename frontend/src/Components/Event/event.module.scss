@@ -1,14 +1,5 @@
 @import "../Common/variables.module.scss";
 
-$day-background: #eaeaea;
-$day-hover: #cacaca;
-$day-border: #999999;
-$day-border-selected: hsl(64, 49%, 35%);
-$day-background-selected: hsl(64, 49%, 54%);
-$day-height: 15px;
-$day-height-mobile: 20px;
-$list-item-hover: #fafafa;
-
 .stepperPaper {
     width: 60%;
     min-width: 200px;
