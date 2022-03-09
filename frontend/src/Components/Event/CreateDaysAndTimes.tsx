@@ -345,8 +345,6 @@ const CreateDaysAndTimes = (props: Props) => {
         <Paper elevation={2} className={styles.stepperPaper}>
             <div className={styles.timeFlex}>
                 <div className={styles.leftTimesContainer}>
-                    <Typography variant='h6'>Tag</Typography>
-
                     <DayPicker label="Datum" date={date} onValueChange={setdate} />
 
                     <Typography variant='h6'>Zeiten</Typography>
@@ -358,7 +356,7 @@ const CreateDaysAndTimes = (props: Props) => {
                     <Button variant='contained' fullWidth onClick={() => addDayToState()} disabled={times.length === 0 || date === null || date < new Date()}>Tag Hinzufügen</Button>
 
                 </div>
-                {createDaySlider()}
+                {createDaySlider()} 
             </div>
             <Divider />
             <Typography variant='h6'>Zusammenfassung</Typography>

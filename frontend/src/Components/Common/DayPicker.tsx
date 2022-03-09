@@ -1,10 +1,9 @@
 import React from 'react'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import deLocale from 'date-fns/locale/de';
-import { TextField } from '@mui/material';
+import { Paper, TextField } from '@mui/material';
 import styles from '../Common/common.module.scss';
 import PickersDay from '@mui/lab/PickersDay';
 import { dateToString } from './StaticFunctions';
@@ -19,6 +18,7 @@ type Props = {
 const DayPicker = (props: Props) => {
 
     return (
+        <Paper>
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={deLocale} >
             <StaticDatePicker
                 openTo="day"
@@ -40,6 +40,7 @@ const DayPicker = (props: Props) => {
                 renderInput={(params) => <TextField variant='outlined'{...params} className={styles.daypicker} error={props.date !== null && (props.date as Date) < new Date()} />}
             />
         </LocalizationProvider>
+        </Paper>
     )
 }
 
