@@ -2,6 +2,7 @@ import React from 'react'
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import deLocale from 'date-fns/locale/de';
 import { TextField } from '@mui/material';
 import styles from '../Common/common.module.scss';
@@ -19,8 +20,8 @@ const DayPicker = (props: Props) => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={deLocale} >
-            <DatePicker
-
+            <StaticDatePicker
+                openTo="day"
                 label={props.label}
                 value={props.date}
                 renderDay={(day, selected, DayProps) => {

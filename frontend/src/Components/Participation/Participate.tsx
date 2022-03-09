@@ -28,7 +28,7 @@ const Participate = (props: Props) => {
 
     const getHeadline = () => {
         if (event?.name !== null) {
-            return <><b>{event?.owner_name}</b> hat dich zum Event < b > {event?.name}</b > eingeladen</>
+            return <><b>{event?.owner_name}</b> hat dich zum Event <b> {event?.name}</b> eingeladen</>
         } else {
             return <>Du wurstest zum Event < b > {event?.name}</b > eingeladen</>
         }
@@ -37,7 +37,7 @@ const Participate = (props: Props) => {
     return (
         <div className={styles.participatePageContainer}>
             <Typography variant='h4'>
-                <b>{event?.owner_name}</b> hat dich zum Event <b>{event?.name}</b> eingeladen
+                {getHeadline()}
             </Typography>
 
             <Typography variant='h5'>Trage dich ein</Typography>
