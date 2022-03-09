@@ -7,6 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EventTable from './EventTable'
 import { useParams } from 'react-router-dom'
 import { doGetRequest, getAndStore } from '../Common/StaticFunctions'
+import Config from '../../environment.json'
 
 type Props = {}
 
@@ -57,7 +58,7 @@ const Participate = (props: Props) => {
                                 </InputAdornment>
                             ),
                         }}
-                    />{event.send_result ?
+                    />{event?.send_result ?
                         <TextField
                             id="event-name"
                             label="Email Adresse"
@@ -74,14 +75,17 @@ const Participate = (props: Props) => {
                     }
                     <Button variant='contained' className={pstyles.sendButton}>Absenden</Button>
                 </Paper>
+
+            </div>
+
+            {window.innerWidth >= Config.COMPACT_SIZE_THRESHOLD ?
+                <EventTable /> :
                 <div className={styles.accordionContainer}>
                     <ParticipationSlotCard />
                     <ParticipationSlotCard />
                     <ParticipationSlotCard />
                     <ParticipationSlotCard />
-                </div>
-            </div>
-            <EventTable />
+                </div>}
 
         </div>
     )
